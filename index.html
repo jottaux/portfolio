@@ -1,287 +1,411 @@
 <!doctype html>
-<html lang="pt-BR" data-type="service" data-radius="soft" data-buttons="solid" data-motion>
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>João Pedro: product designer de apps de delivery</title>
-<meta name="description" content="Portfólio de João Pedro, product designer no Quero Delivery: pesquisa, protótipos, testes de usabilidade, design system e AI Design.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="João Pedro: product designer de apps de delivery">
-<meta property="og:description" content="Pesquisa, protótipos, design system e AI Design para produtos de delivery.">
-<meta property="og:image" content="share.jpg">
-<meta name="twitter:card" content="summary_large_image">
+<title>João Pedro · Product Designer</title>
+<meta name="description" content="Portfólio de João Pedro, Product Designer: Design System, pesquisa, prototipagem e AI Design.">
+<meta name="theme-color" content="#F3ECDF">
 <link rel="icon" href="brand/jotta_favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="brand/apple-touch-icon-180.png">
-<meta name="theme-color" content="#fbf8f2">
-<!-- <link rel="canonical" href="https://[domínio do João Pedro]/"> -->
-<meta name="site-kind" content="other">
-<meta name="page-type" content="service">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- the client's own type (identidade visual jotta): Jost for titles, Inter for text -->
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/system.css">
-<link rel="stylesheet" href="assets/ui/cards.css">
-<link rel="stylesheet" href="assets/motion/motion.css">
-<link rel="stylesheet" href="assets/layout/layout.css">
-<link rel="stylesheet" href="assets/icons/icon.css">
-<link rel="stylesheet" href="assets/diagrams/diagram.css">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --p-bg: #fbf8f2; --p-surface: #f3ecdf; --p-ink: #1f2a44; --p-muted: #5e6679;
-  --p-accent: #43659a; --p-accent-ink: #fbf8f2; --p-action: #43659a; --p-action-ink: #fbf8f2;
-  --p-inv-bg: #1f2a44; --p-inv-surface: #2c374f; --p-inv-ink: #fbf8f2; --p-inv-muted: #a0a4ad;
-  --p-inv-accent: #fbf8f2; --p-inv-accent-ink: #1f2a44; --p-inv-action: #fbf8f2; --p-inv-action-ink: #1f2a44;
-  --font-display: "Jost", system-ui, sans-serif;
-  --font-text: "Inter", system-ui, sans-serif;
-  --display-weight: 400;
-  --display-tracking: -0.025em;
-  --display-tracking-xl: -0.035em;
+/* Base: identidade visual jotta (jotta_apresentacao_v2.html) */
+:root{
+  --areia:#F3ECDF;--papel:#FBF8F2;--nevoa:#C9D6EA;--azul:#43659A;--tinta:#1F2A44;
+  --terracota:#D4764E;--terracota-t:#A9532F;--mostarda:#E2B44A;
+  --c-tri:var(--mostarda);--c-dot:var(--terracota);--c-body:var(--azul);--c-wm:var(--tinta);
+  --linha:rgba(31,42,68,.14);
+  --display:'Jost','Century Gothic','Futura',sans-serif;
+  --texto:'Inter','Segoe UI',Arial,sans-serif;
+  --ease:cubic-bezier(.7,0,.2,1);
 }
-</style>
-<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
-<script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
-<link rel="modulepreload" href="assets/moments/moments.js">
-<link rel="modulepreload" href="assets/moments/lib.js">
-<link rel="modulepreload" href="assets/moments/pinned-chapters/moment.js">
-<style>
-  .nav__logo img { display: block; height: 30px; width: auto; }
-  .closing .nav__logo img { height: 34px; }
-  #cases .panel { --p-h: 260px; }
-  #ia .panel { --p-h: 400px; }
-  @media (max-width: 639px) { #ia .panel { --p-h: 420px; } }
-  #cases .card > .t-small { margin-top: var(--s-3); }
-  #cases h3 .badge { margin-left: var(--s-2); background: var(--p-surface); color: var(--p-ink); }
-  .sobre__skills { padding-top: var(--s-7); display: grid; gap: var(--s-3); }
-  .sobre__skills h3 { font-size: var(--t-card); }
-  .sobre__cols { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--s-5); }
-  @media (max-width: 639px) { .sobre__cols { grid-template-columns: 1fr; } }
-  .rows .rows__name small { display: block; font-weight: 400; color: var(--muted); font-size: var(--t-small); }
-  @media (max-width: 639px) { #cases .panel { --p-h: 200px; } }
-  @media (min-width: 640px) and (max-width: 1279px) { #cases { --h: 2 } }
-  @media (min-width: 640px) and (max-width: 1023px) { #ia .panel { --p-h: 240px; } #processo .mo-pc__visual > img { max-height: 17svh; } #cases .panel { --p-h: 440px; } }
-  @media (min-width: 1024px) and (max-width: 1279px) { #cases .panel { --p-h: 400px; } }
-  @media (max-width: 639px) { main > #processo:not(.is-live) { min-height: 200lvh; } #sobre .frame--fill { flex: none; aspect-ratio: 4 / 3; } }
+*{box-sizing:border-box;margin:0}
+body{background:var(--areia);color:var(--tinta);font:16px/1.55 var(--texto);overflow-x:hidden}
+.wrap{max-width:1180px;margin:0 auto;padding:0 max(28px,env(safe-area-inset-right)) 0 max(28px,env(safe-area-inset-left))}
+h1{font-family:var(--display);font-weight:500;letter-spacing:-.02em;line-height:.94}
+svg{display:block}
+.muted{color:#4C5873}
+.num{font:500 13px/1 var(--texto);letter-spacing:.16em;text-transform:uppercase;display:flex;gap:14px;align-items:center;margin-bottom:28px;color:var(--terracota-t)}
+.num::before{content:"";width:28px;height:2px;background:currentColor}
+.lead{font-size:clamp(18px,1.6vw,21px);max-width:520px;line-height:1.55;margin-top:28px}
+
+/* HERO */
+.hero{min-height:100vh;min-height:100svh;display:grid;align-items:center;padding:96px 0 60px;position:relative;overflow:hidden}
+.hero .top{position:absolute;top:max(28px,env(safe-area-inset-top));left:0;right:0}
+.hero .top .wrap{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.hero .top a{display:block}
+.hero__grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;width:100%}
+.hero h1{font-size:clamp(52px,8vw,116px)}
+.hero h1 em{font-style:normal;color:var(--azul)}
+
+/* ANATOMIA: peças separadas, juntam no hover / foco / toque */
+.anat{display:block;width:100%;max-width:640px;margin:0 auto;padding:0;border:0;background:none;font:inherit;color:inherit;cursor:pointer;border-radius:12px;outline-offset:8px}
+.anat svg{width:100%;overflow:visible}
+.anat:focus-visible{outline:2px solid var(--azul)}
+.anat .pc{transition:transform .9s var(--ease)}
+.anat .p1{transform:translate(-18px,-14px)}
+.anat .p2{transform:translate(14px,-12px)}
+.anat .p3{transform:translate(14px,0)}
+.anat .p4{transform:translate(0,14px)}
+.anat .lbl{transition:opacity .5s}
+.anat .lbl text{font:500 15px var(--texto);fill:var(--tinta)}
+.anat .lbl text tspan{fill:#4C5873;font-weight:400}
+.anat .lbl path{stroke:var(--tinta);stroke-width:1}
+.anat .sol{font:500 54px var(--display);letter-spacing:-.02em;fill:var(--tinta);opacity:0;transform:translateY(10px);transition:opacity .35s,transform .5s var(--ease)}
+.anat:hover .pc,.anat:focus-visible .pc,.anat.join .pc{transform:none}
+.anat:hover .lbl,.anat:focus-visible .lbl,.anat.join .lbl{opacity:0}
+.anat:hover .sol,.anat:focus-visible .sol,.anat.join .sol{opacity:1;transform:none;transition:opacity .6s .55s,transform .7s .5s cubic-bezier(.2,.8,.2,1)}
+.note{font-size:12px;text-align:center;color:#4C5873;max-width:640px;margin:0 auto 10px;padding-left:5%} /* 5% = centro do símbolo (x 336 de 640) */
+
+/* SEÇÕES (padrões da apresentação jotta) */
+html{scroll-behavior:smooth}
+section{padding:120px 0;position:relative}
+h2,h3{font-family:var(--display);font-weight:500;letter-spacing:-.02em;line-height:1.02}
+h2{font-size:clamp(40px,6.4vw,84px)}
+h3{font-size:clamp(22px,2.4vw,30px);letter-spacing:-.01em;line-height:1.15}
+a{color:inherit}
+.dark{background:var(--tinta);color:var(--papel)}
+.dark .muted{color:#B9C1D3}
+.blue{background:var(--azul);color:var(--papel)}
+.on-dark{color:var(--mostarda)}
+.mt{margin-top:22px}
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+
+/* topo */
+.nav{display:flex;gap:28px;align-items:center;font-size:14px}
+.nav a{text-decoration:none;padding:10px 0}
+.btn{display:inline-block;background:var(--azul);color:var(--papel);font:500 15px/1 var(--texto);padding:16px 22px;text-decoration:none;transition:transform .2s}
+.btn:hover{background:#38568a}
+.btn:active{transform:translateY(1px)}
+.top .btn{padding:14px 16px;font-size:13px;margin-left:28px}
+.nav{margin-left:auto}
+.btn--light{background:var(--mostarda);color:var(--tinta)}
+.btn--light:hover{background:#ecc15c}
+a:focus-visible,.btn:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+
+/* 01 sobre */
+.manifesto{overflow:hidden}
+.manifesto blockquote{font:400 clamp(30px,4.6vw,62px)/1.12 var(--display);letter-spacing:-.02em;max-width:1000px}
+.manifesto blockquote em{font-style:normal;color:var(--mostarda)}
+.manifesto .deco{position:absolute;right:0;bottom:0;width:min(30vw,340px)}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 28px;margin-top:72px;max-width:900px;position:relative}
+.trio div{border-top:1px solid rgba(251,248,242,.25);padding-top:16px;font-size:15px}
+.trio h3{font-size:22px;margin-bottom:6px}
+
+/* 02 processo */
+.parts{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 24px;margin-top:56px}
+.parts>div{border-top:2px solid var(--tinta);padding-top:16px}
+.parts svg{width:44px;height:44px;margin-bottom:18px}
+.parts .n{font:500 12px var(--texto);letter-spacing:.12em;color:#4C5873}
+.parts h3{font-size:26px;line-height:1.1;margin:6px 0}
+.parts p{font-size:14.5px;color:#4C5873;max-width:34ch}
+.equals{margin-top:72px;font:400 clamp(22px,3vw,38px)/1.2 var(--display);text-align:center}
+.equals b{font-weight:500;color:var(--azul)}
+
+/* 03 ai design */
+.motion{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:56px}
+.mv{background:var(--papel);padding:28px 20px 24px;font-size:13.5px;line-height:1.5;color:#4C5873}
+.mv svg{width:40px;height:40px;margin-bottom:22px}
+.mv h3{color:var(--tinta);font-size:22px;margin-bottom:6px}
+
+/* 04 cases */
+.cases{background:#18213A}
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.case{display:flex;flex-direction:column;text-decoration:none}
+.case .art{overflow:hidden}
+.case .art svg{width:100%;height:auto;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.case .n{font:500 12px var(--texto);letter-spacing:.12em;color:var(--mostarda);margin-top:20px;display:flex;justify-content:space-between;gap:12px}
+.case .n span{color:#B9C1D3;letter-spacing:.04em}
+.case h3{margin:10px 0 8px}
+.case p{font-size:14.5px;color:#B9C1D3}
+.case .meta{margin-top:16px;padding-top:14px;border-top:1px solid rgba(251,248,242,.2);font-size:13px;color:#B9C1D3}
+
+/* 05 trajetória */
+.traj{margin-top:56px;border-top:2px solid var(--tinta)}
+.traj .row{display:grid;grid-template-columns:240px 1fr auto;gap:24px;align-items:baseline;padding:26px 0;border-bottom:1px solid var(--linha)}
+.traj .yr{font:500 clamp(22px,2.4vw,30px)/1 var(--display);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.traj b{font:500 clamp(22px,2.4vw,30px)/1.1 var(--display);letter-spacing:-.01em}
+.traj span{font-size:14.5px;color:#4C5873}
+
+/* padrão + contato */
+.pattern{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));grid-template-rows:auto;grid-auto-rows:0;overflow:hidden} /* uma fileira sempre cheia: as peças que sobram ficam escondidas */
+.pattern svg{width:100%;height:auto}
+.fim{min-height:80vh;display:grid;place-items:center;text-align:center}
+.fim .lead{margin:26px auto 36px;color:#B9C1D3;max-width:520px}
+.foot{background:var(--tinta);color:#8D97AE;font-size:13px;padding:0 0 max(32px,env(safe-area-inset-bottom))}
+.foot .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid rgba(251,248,242,.15);padding-top:24px}
+
+/* HOVER: animações suaves (só transform e opacity) */
+.parts svg,.mv svg,.pattern svg,.sym-hv *{transform-box:fill-box;transform-origin:50% 50%}
+.parts svg,.mv svg{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.parts>div,.trio div,.mv,.nav a{position:relative}
+.parts>div::before,.trio div::before,.nav a::after{content:"";position:absolute;left:0;right:0;transform:scaleX(0);transform-origin:0 50%;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.parts>div::before{top:-2px;height:2px;background:var(--azul)}
+.trio div::before{top:-1px;height:1px;background:var(--mostarda)}
+.nav a::after{bottom:4px;height:1px;background:currentColor}
+.mv::after{content:"";position:absolute;inset:0;box-shadow:0 22px 34px -16px rgba(20,28,48,.55);opacity:0;transition:opacity .35s;pointer-events:none}
+.js .mv.rv,.mv{transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1),translate .35s cubic-bezier(.2,.8,.2,1)}
+.traj .yr,.traj b{transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.pattern svg{transition:transform .6s cubic-bezier(.7,0,.2,1)}
+.sym-hv{overflow:visible}
+.sym-hv .hTri,.sym-hv .hHead{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.hero .top a svg{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.nav a:focus-visible::after{transform:none}
+@media (hover:hover){
+  .nav a:hover::after{transform:none}
+  .parts>div:hover::before,.trio div:hover::before{transform:none}
+  .parts>div:hover svg{transform:rotate(90deg)}
+  .parts>div:hover h3{color:var(--azul)}
+  .mv:hover{translate:0 -6px}
+  .mv:hover::after{opacity:1}
+  .mv:hover svg{transform:rotate(90deg) scale(1.08)}
+  .trio div:hover h3{color:var(--mostarda)}
+  a.case:hover .art svg{transform:scale(1.03)}
+  a.case:hover h3{color:var(--mostarda)}
+  .traj .row:hover .yr,.traj .row:hover b{transform:translateX(10px)}
+  .traj .row:hover b{color:var(--azul)}
+  .pattern svg:hover{transform:rotate(90deg)}
+  .sym-hv:hover .hTri{transform:translate(-5px,-5px)}
+  .sym-hv:hover .hHead{transform:translateY(-6px)}
+  .hero .top a:hover svg{transform:translateY(-2px)}
+}
+
+/* acessibilidade, toque e áreas seguras */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.skip{position:absolute;left:16px;top:-80px;z-index:10;background:var(--tinta);color:var(--papel);padding:12px 16px;font-size:14px;text-decoration:none}
+.skip:focus{top:16px}
+a,button{touch-action:manipulation;-webkit-tap-highlight-color:rgba(67,101,154,.2)}
+h1,h2,h3,blockquote{text-wrap:balance}
+.hv-touch{display:none}
+@media (hover:none){.hv-mouse{display:none}.hv-touch{display:inline}}
+
+@media (max-width:860px){
+  section{padding:84px 0}
+  .wrap{padding:0 max(18px,env(safe-area-inset-right)) 0 max(18px,env(safe-area-inset-left))}
+  .hero .top .wrap{flex-wrap:wrap;row-gap:6px}
+  .top .btn{margin-left:auto}
+  .nav{order:3;width:100%;margin:0;justify-content:space-between;gap:12px}
+  .trio{grid-template-columns:1fr}
+  .parts{grid-template-columns:1fr 1fr}
+  .motion{grid-template-columns:1fr 1fr}
+  .motion .mv:last-child{grid-column:1/-1}
+  .cgrid{grid-template-columns:1fr;gap:48px}
+  .traj .row{grid-template-columns:1fr;gap:6px}
+  .manifesto .deco{width:120px;opacity:.9}
+  .manifesto{padding-bottom:160px}
+  .hero{padding:156px 0 48px;align-items:start}
+  .hero__grid{grid-template-columns:1fr;gap:32px}
+  .anat .lbl text{font-size:22px}
+  .anat .sol{font-size:60px}
+}
+@media (prefers-reduced-motion:reduce){
+  .anat .pc,.anat .lbl,.anat .sol,.case .art svg,.parts svg,.mv svg,.mv,.mv::after,.pattern svg,.sym-hv *,.traj .yr,.traj b,.btn,.hero .top a svg,.nav a::after,.parts>div::before,.trio div::before{transition:none!important}
+  .js .rv{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
 </style>
 </head>
 <body>
-<!-- type: service (a product designer hired by product teams)
-     deal: hero split, nav nav-split, close close-type, footer footer-dark (footer-visit dealt first: no door, dealt again), rhythm surface-pairs, buttons solid, mark: the client's own logo (jotta)
-     palette: the client's own colours (jotta_paleta.css) via start.mjs brand; type: the client's own Jost + Inter
-     moments: pinned-chapters in #processo -->
+<script>document.documentElement.classList.add('js')</script>
 
-<header class="nav nav--split">
-  <div class="wrap nav__bar">
-    <a class="skip-link" href="#top">Pular para o conteúdo</a>
-    <a class="nav__logo" href="#top"><img src="brand/jotta_logo_horizontal_cor.svg" alt="João Pedro" width="77" height="30"></a>
-    <nav class="nav__links" aria-label="Principal">
-      <div class="nav__item"><a class="nav__link" href="#processo">Processo</a></div>
-      <div class="nav__item"><a class="nav__link" href="#ia">IA</a></div>
-      <div class="nav__item">
-        <a class="nav__link" href="#cases">Cases <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <div class="nav__menu">
-          <div class="wrap grid">
-            <a class="menu-card span-4" href="#cases">
-              <div class="panel"><img loading="lazy" width="500" height="333" class="frame__img" src="assets/img/photo-f120365139-500.jpg" alt="Pessoa segurando caixas e sacola de um pedido para viagem" data-source="stand-in" data-subject="takeaway order"></div>
-              <span class="t-card">Design System do app</span>
-              <span class="t-small muted">Compre Sem Fila Delivery</span>
-            </a>
-            <a class="menu-card span-4" href="#cases">
-              <div class="panel"><img loading="lazy" width="500" height="333" class="frame__img" src="assets/img/photo-f39636530-500.jpg" alt="Protótipo de tela desenhado à mão sobre uma mesa de madeira" data-source="stand-in" data-subject="paper prototype"></div>
-              <span class="t-card">Fluxo de pedido completo</span>
-              <span class="t-small muted">Quero Delivery</span>
-            </a>
-            <a class="menu-card span-4" href="#cases">
-              <div class="panel"><img loading="lazy" width="500" height="281" class="frame__img" src="assets/img/photo-f34594370-500.jpg" alt="Parede coberta de post-its coloridos" data-source="stand-in" data-subject="sticky notes"></div>
-              <span class="t-card">Pesquisa e testes</span>
-              <span class="t-small muted">Compre Sem Fila Delivery</span>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="nav__item"><a class="nav__link" href="#sobre">Sobre</a></div>
-    </nav>
-    <div class="nav__actions">
-      <a class="btn btn--primary" href="mailto:contato@joaopedro.example">Enviar um e-mail</a>
+<!-- símbolos da marca (da apresentação jotta) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="sym" viewBox="40 0 80 120">
+      <path d="M72 72V40L40 72Z" style="fill:var(--c-tri)"/>
+      <circle cx="100" cy="20" r="16" style="fill:var(--c-dot)"/>
+      <path d="M80 40H120V80A40 40 0 0 1 40 80H80Z" style="fill:var(--c-body)"/>
+    </symbol>
+    <symbol id="wm" viewBox="0 -2 195 90">
+      <g fill="none" stroke-width="10" style="stroke:var(--c-wm)">
+        <path d="M25 20V65A15 15 0 0 1 10 80H4"/><circle cx="60" cy="40" r="15.6"/>
+        <path d="M100 6V60M128 6V60M90 25H140"/><circle cx="170" cy="40" r="15.6"/><path d="M185 20V60"/>
+      </g>
+      <circle cx="25" cy="7" r="6.5" style="fill:var(--c-dot)"/>
+    </symbol>
+    <symbol id="lockH" viewBox="0 0 178 70">
+      <use href="#sym" x="0" y="5" width="40" height="60"/>
+      <use href="#wm" x="60" y="7.8" width="117" height="54"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- HERO -->
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<header class="hero" id="top">
+  <div class="top"><div class="wrap">
+    <a href="#top" aria-label="jotta, início"><svg viewBox="0 0 178 70" width="96" aria-hidden="true"><use href="#lockH"/></svg></a>
+    <nav class="nav" aria-label="Principal"><a href="#sobre">Sobre</a><a href="#processo">Processo</a><a href="#cases">Cases</a><a href="#trajetoria">Trajetória</a></nav>
+    <a class="btn" href="#contato">Entrar em contato</a>
+  </div></div>
+
+  <div class="wrap hero__grid">
+    <div>
+      <p class="num">João Pedro</p>
+      <h1 translate="no">Product<br><em>Designer</em></h1>
+      <p class="lead muted">Por trás de cada experiência, existe alguém que precisa ser compreendido.</p>
     </div>
-    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
-      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </button>
+
+    <div>
+      <p class="note"><span class="hv-mouse">Passe o mouse em cima</span><span class="hv-touch">Toque para montar</span></p>
+      <!-- símbolo desmontado (seção Anatomia da apresentação): junta no hover, no foco e no toque -->
+      <button class="anat" id="anat" type="button" aria-pressed="false" aria-label="Problema, pesquisa, empatia e ideação se juntam e formam a solução"><svg viewBox="0 0 640 470" aria-hidden="true">
+        <g transform="translate(232 40) scale(2.6)">
+          <g class="pc p1"><path d="M72 72V40L40 72Z" fill="#E2B44A" transform="translate(-40 0)"/></g>
+          <g class="pc p2"><circle cx="60" cy="20" r="16" fill="#D4764E"/></g>
+          <g class="pc p3"><rect x="40" y="40" width="40" height="40.4" fill="#43659A"/></g>
+          <g class="pc p4"><path d="M0 80H80A40 40 0 0 1 0 80Z" fill="#43659A"/></g>
+        </g>
+        <g class="lbl" aria-hidden="true">
+          <path d="M240 340H40"/><text x="40" y="330"><tspan>01</tspan> problema</text>
+          <path d="M484 196H610"/><text x="610" y="186" text-anchor="end"><tspan>02</tspan> pesquisa</text>
+          <path d="M474 61H610"/><text x="610" y="51" text-anchor="end"><tspan>04</tspan> ideação</text>
+          <path d="M206 160H40"/><text x="40" y="150"><tspan>03</tspan> empatia</text>
+        </g>
+        <text class="sol" x="336" y="436" text-anchor="middle" aria-hidden="true">solução</text>
+      </svg></button>
+    </div>
   </div>
 </header>
 
-<main id="top">
-  <section class="hero hero--split" data-enter aria-labelledby="hero-h">
-    <div class="wrap"><div class="hero-text grid hero__grid">
-      <div class="hero__text span-5">
-        <p class="hero__kicker"><span class="dot" aria-hidden="true"></span>No Quero Delivery desde 2025</p>
-        <h1 id="hero-h">Product designer de apps de delivery</h1>
-        <p class="hero__lead">Sou o João Pedro. Cuido do produto de ponta a ponta: pesquisa, protótipo, teste de usabilidade, design system e métricas.</p>
-        <div class="btn-row"><a class="btn btn--primary" href="mailto:contato@joaopedro.example">Enviar um e-mail<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><a class="btn btn--secondary" href="#cases">Ver os cases</a></div>
-        <!-- CURRÍCULO: salve o PDF em brand/curriculo-joao-pedro.pdf e troque o botão "Ver os cases" acima por
-             <a class="btn btn--secondary" href="brand/curriculo-joao-pedro.pdf" download>Baixar o currículo</a> -->
-      </div>
-      <!-- STAND-IN: troque por um retrato seu ou por uma tela do seu trabalho -->
-      <div class="hero__media span-6 start-7">
-        <img src="assets/img/photo-f61361651.jpg" srcset="assets/img/photo-f61361651-500.jpg 500w, assets/img/photo-f61361651-960.jpg 960w, assets/img/photo-f61361651-1280.jpg 1280w, assets/img/photo-f61361651.jpg 1920w" sizes="(max-width: 639px) 188vw, (max-width: 1023px) 100vw, 80vw" width="1920" height="1280" alt="Mão desenhando wireframes a lápis numa folha sobre a mesa" style="--ly-pos: 40% 60%" fetchpriority="high" decoding="async" data-source="stand-in" data-subject="wireframe sketching">
-        <div class="ly-float">
-          <div class="ly-float__row"><span>Antes</span><span>2021 a 2025</span></div>
-          <div class="ly-float__title">Product Designer no Compre Sem Fila Delivery</div>
-        </div>
-      </div>
-    </div></div>
-  </section>
-
-  <section class="section" id="processo" style="--h: 2" data-moment="pinned-chapters" aria-labelledby="processo-h">
-    <div class="wrap mo-pc__grid">
-      <div class="mo-pc__text">
-        <h2 id="processo-h">Processo de design em três etapas</h2>
-        <ol class="mo-pc__steps">
-          <li class="mo-pc__step">
-            <h3>Pesquisa com usuários e dados</h3>
-            <p>Entrevistas com usuários e leitura dos dados de uso do app antes de desenhar a primeira tela.</p>
-            <figure class="mo-pc__visual"><img src="assets/img/photo-f71269648.jpg" srcset="assets/img/photo-f71269648-500.jpg 500w, assets/img/photo-f71269648-960.jpg 960w, assets/img/photo-f71269648.jpg 1280w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 45vw" alt="Quadro branco com post-its agrupados por tema depois de uma sessão de pesquisa" width="1280" height="785" loading="lazy" data-source="stand-in" data-subject="research whiteboard"></figure>
-          </li>
-          <li class="mo-pc__step">
-            <h3>Protótipos testados com usuários</h3>
-            <p>Protótipos testados com usuários. O que trava no teste volta para o protótipo antes de chegar à engenharia.</p>
-            <figure class="mo-pc__visual"><img src="assets/img/photo-f70573673.jpg" srcset="assets/img/photo-f70573673-500.jpg 500w, assets/img/photo-f70573673-960.jpg 960w, assets/img/photo-f70573673.jpg 1280w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 45vw" alt="Protótipo de interface montado com post-its sobre uma folha branca" width="1280" height="853" loading="lazy" data-source="stand-in" data-subject="paper prototype"></figure>
-          </li>
-          <li class="mo-pc__step">
-            <h3>Design System e métricas</h3>
-            <p>Componentes que o time reutiliza, e métricas acompanhadas depois do lançamento para saber se a mudança funcionou.</p>
-            <figure class="mo-pc__visual"><img src="assets/img/photo-f61681597.jpg" srcset="assets/img/photo-f61681597-500.jpg 500w, assets/img/photo-f61681597-960.jpg 960w, assets/img/photo-f61681597.jpg 1280w" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 45vw" alt="Caderno, lápis, régua e notebook sobre uma mesa branca" width="1280" height="853" loading="lazy" data-source="stand-in" data-subject="design desk"></figure>
-          </li>
-        </ol>
-      </div>
-      <div class="mo-pc__visuals frame"></div>
-    </div>
-  </section>
-
-  <section class="section" id="ia" style="--hm: 2" aria-labelledby="ia-h">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="ia-h">AI Design no meu processo</h2>
-        <p>Monto fluxos com agentes de IA que leem o Figma, seguem as regras do time e consultam o Design System.</p>
-      </div>
-      <div class="grid grid--top">
-        <ul class="rows span-6">
-          <li><span class="rows__name">MCP<small>Conecta o agente ao Figma e às ferramentas do time</small></span></li>
-          <li><span class="rows__name">Agentes<small>Executam tarefas de várias etapas, como auditar componentes</small></span></li>
-          <li><span class="rows__name">Skills<small>Instruções reutilizáveis para tarefas que se repetem</small></span></li>
-          <li><span class="rows__name">Harness<small>Regras e checagens que o agente segue a cada execução</small></span></li>
-          <li><span class="rows__name">RAG<small>Respostas tiradas da documentação do Design System</small></span></li>
-        </ul>
-        <div class="span-6 start-7">
-          <div class="panel"><div class="dg" data-diagram='{"layout":"hub","alt":"O agente no centro, ligado ao Figma por MCP, a skills, a um harness de regras e a RAG sobre o Design System.","ground":"none","motion":{"pulse":"none"},"center":{"label":"Agente","icon":"claude"},"spokes":[{"label":"Figma","icon":"figma"},{"label":"MCP","icon":"ui:git-branch"},{"label":"Skills","icon":"ui:pen-line"},{"label":"Harness","icon":"ui:list-checks"},{"label":"RAG","icon":"ui:database"}]}'></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="cases" style="--hm: 2" aria-labelledby="cases-h">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="cases-h">Cases de produto</h2>
-        <p>Projetos do Compre Sem Fila Delivery e do Quero Delivery, da pesquisa à métrica.</p>
-      </div>
-      <!-- CASES: três cards padrão. Para cada um, troque a foto (stand-in) por uma tela do projeto,
-           o título pelo resultado com número ("Pedidos 30% mais rápidos..."), a linha pelo contexto,
-           e a linha de dados (empresa · papel · período) ganha a métrica do case no fim
-           (ex.: "Quero Delivery · Product Designer · 2025 · +18% de conversão").
-           Quando a página do case existir: troque <article> por <a class="card ..." href="case-02.html">
-           e apague o <span class="badge">Em breve</span>. -->
-      <div class="grid">
-        <!-- CASE 01 -->
-        <a class="card card--row card--open span-4" href="case-01.html">
-          <h3>Design System do app</h3>
-          <p>Componentes, tokens e documentação para o time de produto do Compre Sem Fila Delivery.</p>
-          <span class="t-small muted">Compre Sem Fila Delivery · Product Designer · 2021 a 2025</span>
-          <div class="panel"><img loading="lazy" width="1280" height="853" class="frame__img" src="assets/img/photo-f120365139.jpg" srcset="assets/img/photo-f120365139-500.jpg 500w, assets/img/photo-f120365139-960.jpg 960w, assets/img/photo-f120365139.jpg 1280w" sizes="(max-width: 1279px) 100vw, 33vw" alt="Pessoa segurando caixas e sacola de um pedido para viagem" data-source="stand-in" data-subject="takeaway order"></div>
-        </a>
-        <!-- CASE 02 -->
-        <article class="card card--row card--open span-4">
-          <h3>Fluxo de pedido completo <span class="badge">Em breve</span></h3>
-          <p>Do pedido à entrega no Quero Delivery, da pesquisa ao lançamento.</p>
-          <span class="t-small muted">Quero Delivery · Product Designer · 2025</span>
-          <div class="panel"><img loading="lazy" width="1280" height="853" class="frame__img" src="assets/img/photo-f39636530.jpg" srcset="assets/img/photo-f39636530-500.jpg 500w, assets/img/photo-f39636530-960.jpg 960w, assets/img/photo-f39636530.jpg 1280w" sizes="(max-width: 1279px) 100vw, 33vw" alt="Protótipo de tela desenhado à mão sobre uma mesa de madeira" data-source="stand-in" data-subject="paper prototype"></div>
-        </article>
-        <!-- CASE 03 -->
-        <article class="card card--row card--open span-4">
-          <h3>Pesquisa e testes de usabilidade <span class="badge">Em breve</span></h3>
-          <p>Entrevistas e testes no Compre Sem Fila Delivery, e o que mudou a partir deles.</p>
-          <span class="t-small muted">Compre Sem Fila Delivery · Product Designer · 2021 a 2025</span>
-          <div class="panel"><img loading="lazy" width="1280" height="720" class="frame__img" src="assets/img/photo-f34594370.jpg" srcset="assets/img/photo-f34594370-500.jpg 500w, assets/img/photo-f34594370-960.jpg 960w, assets/img/photo-f34594370.jpg 1280w" sizes="(max-width: 1279px) 100vw, 33vw" alt="Parede coberta de post-its coloridos" data-source="stand-in" data-subject="sticky notes"></div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section ground-surface" id="sobre" style="--hm: 2" aria-labelledby="sobre-h">
-    <div class="wrap grid grid--top fill">
-      <div class="span-6">
-        <div class="section-head">
-          <h2 id="sobre-h">Experiência e especialidades</h2>
-          <p>Desde 2021 desenho apps de pedido e entrega, junto com produto e engenharia, do problema à métrica.</p>
-        </div>
-        <ul class="rows">
-          <li><span class="rows__name">Quero Delivery</span><span class="rows__value">2025 até hoje</span><p>Product Designer</p></li>
-          <li><span class="rows__name">Compre Sem Fila Delivery</span><span class="rows__value">2021 a 2025</span><p>Product Designer</p></li>
-        </ul>
-        <div class="sobre__skills">
-          <h3>Especialidades</h3>
-          <div class="sobre__cols">
-            <ul class="rows">
-              <li><span class="rows__name">Design System</span></li>
-              <li><span class="rows__name">Projetos end-to-end</span></li>
-              <li><span class="rows__name">Pesquisa quali e quanti</span></li>
-            </ul>
-            <ul class="rows">
-              <li><span class="rows__name">Prototipagem</span></li>
-              <li><span class="rows__name">Testes de usabilidade</span></li>
-              <li><span class="rows__name">Métricas de produto</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!-- STAND-IN: troque por um retrato seu -->
-      <div class="frame frame--photo frame--fill span-6 start-7"><img width="1280" height="853" class="frame__img" src="assets/img/photo-f69023035.jpg" srcset="assets/img/photo-f69023035-500.jpg 500w, assets/img/photo-f69023035-960.jpg 960w, assets/img/photo-f69023035.jpg 1280w" sizes="(max-width: 1279px) 100vw, 50vw" alt="Dedo tocando a tela de um smartphone sobre a mesa" loading="lazy" data-source="stand-in" data-subject="smartphone"></div>
-    </div>
-  </section>
-</main>
-
-<footer class="footer closing footer--dark ground-inverse" id="contact" aria-labelledby="close-h">
+<main id="conteudo">
+<!-- 01 SOBRE -->
+<section class="manifesto dark" id="sobre">
+  <svg class="deco" viewBox="0 0 200 200" aria-hidden="true"><path d="M200 200H40L200 40Z" fill="#E2B44A"/><circle cx="160" cy="34" r="22" fill="#D4764E"/></svg>
   <div class="wrap">
-    <div class="closing__cta close--type">
-      <div class="section-head">
-        <h2 id="close-h">Vamos conversar sobre o seu produto</h2>
-        <p>Conte a vaga ou o projeto por e-mail. Respondo pessoalmente.</p>
-      </div>
-      <a class="btn btn--primary btn--xl btn--wide" href="mailto:contato@joaopedro.example">Enviar um e-mail<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+    <h2 class="sr-only">Sobre</h2>
+    <p class="num on-dark" aria-hidden="true">01 · Sobre</p>
+    <blockquote class="rv">Sou o João Pedro. Desde 2021 desenho produtos de delivery, e todo projeto começa pela mesma pergunta: <em>o que essa pessoa está tentando fazer?</em></blockquote>
+    <div class="trio rv">
+      <div><h3>Design System</h3><span class="muted">Componentes, tokens e documentação que o time reutiliza.</span></div>
+      <div><h3>Projetos end-to-end</h3><span class="muted">Do problema ao lançamento, junto com produto e engenharia.</span></div>
+      <div><h3>Pesquisa quali e quanti</h3><span class="muted">Entrevistas para entender o porquê, dados para medir o quanto.</span></div>
+      <div><h3>Prototipagem</h3><span class="muted">Ideias que viram algo testável o quanto antes.</span></div>
+      <div><h3>Testes de usabilidade</h3><span class="muted">O que trava no teste volta para a prancheta.</span></div>
+      <div><h3>Métricas</h3><span class="muted">Acompanhar o resultado depois que a tela vai ao ar.</span></div>
     </div>
-    <div class="closing__links">
-      <div class="grid">
-        <div class="span-4 stack-4">
-          <a class="nav__logo" href="#top"><img loading="lazy" src="brand/jotta_logo_horizontal_negativo.svg" alt="João Pedro" width="87" height="34"></a>
-          <p class="footer__lede">Product designer de apps de delivery no Brasil.</p>
-        </div>
-        <div class="span-2 start-9 footer__col"><h3>Trabalho</h3><ul><li><a href="#processo">Processo</a></li><li><a href="#ia">AI Design</a></li><li><a href="#cases">Cases</a></li></ul></div>
-        <div class="span-2 footer__col"><h3>Sobre</h3><ul><li><a href="#sobre">Experiência</a></li><li><a href="#top">Início</a></li></ul></div>
+  </div>
+</section>
+
+<!-- 02 PROCESSO -->
+<section id="processo">
+  <div class="wrap">
+    <p class="num">02 · Processo</p>
+    <h2 class="rv">6 peças.<br>1 método.</h2>
+    <p class="lead muted rv mt">Um percurso flexível, mas com método: do entendimento do problema até a medição do que foi lançado.</p>
+    <div class="parts">
+      <div class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M0 24H48A24 24 0 0 1 0 24Z" fill="#43659A"/></svg><span class="n">01 · PROBLEMA</span><h3>Descoberta</h3><p>Entender com o time e o negócio o que realmente precisa ser resolvido, antes de qualquer tela.</p></div>
+      <div class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" fill="#43659A"/></svg><span class="n">02 · PESQUISA</span><h3>Quali e quanti</h3><p>Ouvir quem usa e ler os dados de uso, para decidir com evidência.</p></div>
+      <div class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M44 44V4L4 44Z" fill="#E2B44A"/></svg><span class="n">03 · EMPATIA</span><h3>Jornada de quem usa</h3><p>Olhar o fluxo pelo lado da pessoa: onde ela hesita, erra ou desiste.</p></div>
+      <div class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20" fill="#D4764E"/></svg><span class="n">04 · IDEAÇÃO</span><h3>Protótipo</h3><p>Transformar hipóteses em protótipos navegáveis, rápidos de mudar.</p></div>
+      <div class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M4 44V4A40 40 0 0 1 44 44Z" fill="#1F2A44"/></svg><span class="n">05 · VALIDAÇÃO</span><h3>Teste de usabilidade</h3><p>Testar com pessoas reais e corrigir o que não ficou claro.</p></div>
+      <div class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" fill="#C9D6EA"/><rect x="4" y="4" width="20" height="20" fill="#43659A"/></svg><span class="n">06 · ESCALA</span><h3>Design System e métricas</h3><p>Levar a solução para os componentes do time e acompanhar o resultado.</p></div>
+    </div>
+    <p class="equals rv">problema + pesquisa + empatia + ideação = <b>solução</b></p>
+  </div>
+</section>
+
+<!-- 03 AI DESIGN -->
+<section class="blue" id="ia">
+  <div class="wrap">
+    <p class="num on-dark">03 · AI Design</p>
+    <h2 class="rv">IA como parte<br>do processo.</h2>
+    <p class="lead rv mt">Além de desenhar telas, monto fluxos de trabalho com agentes de IA para o dia a dia de design.</p>
+    <div class="motion">
+      <div class="mv rv"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20" fill="#D4764E"/></svg><h3>MCP</h3>Conecta o agente às ferramentas e aos arquivos do time.</div>
+      <div class="mv rv"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M44 44V4L4 44Z" fill="#E2B44A"/></svg><h3>Agentes</h3>Executam tarefas de várias etapas, do início ao fim.</div>
+      <div class="mv rv"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" fill="#43659A"/></svg><h3>Skills</h3>Instruções reutilizáveis para tarefas que se repetem.</div>
+      <div class="mv rv"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M0 24H48A24 24 0 0 1 0 24Z" fill="#1F2A44"/></svg><h3>Harness</h3>Regras e checagens que o agente segue a cada execução.</div>
+      <div class="mv rv"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M4 44V4A40 40 0 0 1 44 44Z" fill="#43659A"/></svg><h3>RAG</h3>Respostas baseadas na documentação, não em suposição.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 CASES
+     Cards padrão para preencher depois. Em cada um, troque:
+     - a arte (svg) por uma imagem do projeto: <img src="..." alt="...">
+     - o título, o resumo e a linha de dados (empresa · papel · ano · métrica)
+     - "Em breve" por "Ler o case" e o <div class="case"> por <a class="case" href="case-01.html"> -->
+<section class="cases dark" id="cases">
+  <div class="wrap">
+    <p class="num on-dark">04 · Cases</p>
+    <h2 class="rv">Projetos em<br>construção.</h2>
+    <p class="lead muted rv mt">Os estudos de caso do <span translate="no">Compre&nbsp;Sem&nbsp;Fila&nbsp;Delivery</span> e do <span translate="no">Quero&nbsp;Delivery</span> entram aqui.</p>
+    <div class="cgrid">
+      <div class="case rv">
+        <div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><rect width="120" height="80" fill="#C9D6EA"/><rect width="40" height="40" fill="#1F2A44"/><path d="M20 80A40 40 0 0 1 100 80Z" fill="#43659A"/><circle cx="100" cy="20" r="12" fill="#D4764E"/></svg></div>
+        <span class="n">CASE 01 <span>Em breve</span></span>
+        <h3>Título do case</h3>
+        <p>Resumo do desafio e do resultado em uma ou duas linhas.</p>
+        <div class="meta">Empresa · Papel · Ano</div>
       </div>
-      <div class="footer__legal">
-        <span>&copy; 2026 João Pedro</span>
-        <!-- LINKEDIN: cole o endereço do seu perfil e tire o comentário
-        <div class="socials"><a href="https://www.linkedin.com/in/SEU-PERFIL/" aria-label="LinkedIn de João Pedro"><span class="icon-mono" data-icon="linkedin"></span></a></div> -->
-        <div class="socials"></div>
-        <a class="credits" href="credits.html">Fotografias via Wikimedia Commons</a>
+      <div class="case rv">
+        <div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><rect width="120" height="80" fill="#F3ECDF"/><path d="M0 80V0A80 80 0 0 1 80 80Z" fill="#43659A"/><path d="M120 0V40H80Z" fill="#E2B44A"/><rect x="80" y="40" width="40" height="40" fill="#1F2A44"/></svg></div>
+        <span class="n">CASE 02 <span>Em breve</span></span>
+        <h3>Título do case</h3>
+        <p>Resumo do desafio e do resultado em uma ou duas linhas.</p>
+        <div class="meta">Empresa · Papel · Ano</div>
+      </div>
+      <div class="case rv">
+        <div class="art"><svg viewBox="0 0 120 80" aria-hidden="true"><rect width="120" height="80" fill="#43659A"/><circle cx="40" cy="40" r="28" fill="#F3ECDF"/><path d="M80 0H120V40A40 40 0 0 1 80 0Z" fill="#D4764E"/><path d="M80 80H120V40Z" fill="#E2B44A"/></svg></div>
+        <span class="n">CASE 03 <span>Em breve</span></span>
+        <h3>Título do case</h3>
+        <p>Resumo do desafio e do resultado em uma ou duas linhas.</p>
+        <div class="meta">Empresa · Papel · Ano</div>
       </div>
     </div>
   </div>
-</footer>
+</section>
 
-<script type="module" src="assets/system.js"></script>
-<script type="module" src="assets/motion/motion.js"></script>
-<script type="module" src="assets/layout/layout.js"></script>
-<script type="module" src="assets/diagrams/mount.js"></script>
+<!-- 05 TRAJETÓRIA -->
+<section id="trajetoria">
+  <div class="wrap">
+    <p class="num">05 · Trajetória</p>
+    <h2 class="rv">5 anos<br>de delivery.</h2>
+    <div class="traj">
+      <div class="row rv"><span class="yr">2025 — hoje</span><b translate="no">Quero Delivery</b><span>Product Designer</span></div>
+      <div class="row rv"><span class="yr">2021 — 2025</span><b translate="no">Compre Sem Fila Delivery</b><span>Product Designer</span></div>
+      <!-- FORMAÇÃO: copie uma linha acima para cada curso (ano · curso · instituição) -->
+    </div>
+  </div>
+</section>
+
+<div class="pattern" id="pattern" aria-hidden="true"></div>
+
+<!-- 06 CONTATO -->
+<section class="fim dark" id="contato">
+  <div class="wrap">
+    <svg class="sym-hv" viewBox="40 0 80 120" width="110" role="img" aria-label="jotta" style="margin:0 auto 40px"><path d="M80 40H120V80A40 40 0 0 1 40 80H80Z" fill="#FBF8F2"/><circle class="hHead" cx="100" cy="20" r="16" fill="#D4764E"/><path class="hTri" d="M72 72V40L40 72Z" fill="#E2B44A"/></svg>
+    <h2 class="rv">Vamos conversar<br>sobre o seu produto.</h2>
+    <p class="lead rv">Aberto a conversas sobre produto, design e novas oportunidades.</p>
+    <!-- CONTATO: LinkedIn e currículo entram ao lado como <a class="btn"> -->
+    <a class="btn btn--light" href="mailto:joaopedroux@gmail.com">Enviar um e-mail</a>
+  </div>
+</section>
+</main>
+
+<footer class="foot"><div class="wrap"><span translate="no">© 2026 João Pedro · Product Designer</span><span translate="no">jotta</span></div></footer>
+
+<script>
+(function(){
+  var a=document.getElementById('anat');
+  function toggle(){a.setAttribute('aria-pressed',a.classList.toggle('join'))}
+  a.addEventListener('click',toggle);
+  var els=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});els.forEach(function(el){io.observe(el)})}else els.forEach(function(el){el.classList.add('in')});
+  setTimeout(function(){els.forEach(function(el){if(el.getBoundingClientRect().top<innerHeight)el.classList.add('in')})},1500);
+  var el=document.getElementById('pattern'),C=['#43659A','#1F2A44','#C9D6EA','#D4764E','#E2B44A'],W=[5,2,3,1,1],bgs=['#F3ECDF','#FBF8F2','#C9D6EA','#43659A'];
+  function pick(x){return x[Math.floor(Math.random()*x.length)]}
+  function wpick(){var t=0,r=Math.random()*12;for(var i=0;i<C.length;i++){t+=W[i];if(r<t)return C[i]}return C[0]}
+  var S=[function(c){return '<circle cx="24" cy="24" r="18" fill="'+c+'"/>'},function(c){return '<path d="M0 48V0A48 48 0 0 1 48 48Z" transform="rotate('+pick([0,90,180,270])+' 24 24)" fill="'+c+'"/>'},function(c){return '<path d="M0 24H48A24 24 0 0 1 0 24Z" transform="rotate('+pick([0,90,180,270])+' 24 24)" fill="'+c+'"/>'},function(c){return '<path d="M0 0H48L0 48Z" transform="rotate('+pick([0,90,180,270])+' 24 24)" fill="'+c+'"/>'},function(c){return '<rect x="12" y="12" width="24" height="24" fill="'+c+'"/>'},function(){return ''}];
+  var n=60,s='';
+  for(var i=0;i<n;i++){var bg=pick(bgs),c=wpick();if(c===bg)c='#1F2A44';s+='<svg viewBox="0 0 48 48"><rect width="48" height="48" fill="'+bg+'"/>'+pick(S)(c)+'</svg>'}
+  el.innerHTML=s;
+})();
+</script>
 </body>
 </html>
