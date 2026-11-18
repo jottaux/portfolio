@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Harness Design · João Pedro</title>
+<meta name="description" content="Case de João Pedro na Quero Delivery: uma arquitetura de agentes e skills de IA que reduziu em 40% o tempo de atividades de Discovery e Construção do time de UX.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Harness Design, Quero Delivery">
+<meta property="og:description" content="Redesenhando o workflow de UX com inteligência artificial.">
+<meta property="og:image" content="assets/img/cases/harness-design/arquitetura-harness.webp">
+<meta name="theme-color" content="#F3ECDF">
+<link rel="icon" href="brand/jotta_favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="brand/apple-touch-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Base: identidade visual jotta (mesma da index.html) */
+:root{
+  --areia:#F3ECDF;--papel:#FBF8F2;--nevoa:#C9D6EA;--azul:#43659A;--tinta:#1F2A44;
+  --terracota:#D4764E;--terracota-t:#A9532F;--mostarda:#E2B44A;
+  --c-tri:var(--mostarda);--c-dot:var(--terracota);--c-body:var(--azul);--c-wm:var(--tinta);
+  --linha:rgba(31,42,68,.14);
+  --display:'Jost','Century Gothic','Futura',sans-serif;
+  --texto:'Inter','Segoe UI',Arial,sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--areia);color:var(--tinta);font:17px/1.65 var(--texto);overflow-x:hidden}
+.wrap{max-width:1180px;margin:0 auto;padding:0 max(28px,env(safe-area-inset-right)) 0 max(28px,env(safe-area-inset-left))}
+svg{display:block}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:500;letter-spacing:-.02em;text-wrap:balance}
+h1{font-size:clamp(56px,9vw,128px);line-height:.94}
+h2{font-size:clamp(36px,5vw,64px);line-height:1.04}
+h3{font-size:clamp(21px,2.1vw,26px);line-height:1.2;letter-spacing:-.01em}
+p{text-wrap:pretty}
+.muted{color:#4C5873}
+.num{font:500 13px/1 var(--texto);letter-spacing:.16em;text-transform:uppercase;display:flex;gap:14px;align-items:center;margin-bottom:28px;color:var(--terracota-t)}
+.num::before{content:"";width:28px;height:2px;background:currentColor}
+.dark{background:var(--tinta);color:var(--papel)}
+.dark .muted{color:#B9C1D3}
+.blue{background:var(--azul);color:var(--papel)}
+.blue .muted{color:#DCE4F1}
+.on-dark{color:var(--mostarda)}
+section{padding:120px 0;position:relative}
+
+/* topo */
+.top{padding:max(28px,env(safe-area-inset-top)) 0 0}
+.top .wrap{display:flex;align-items:center;gap:28px;font-size:14px}
+.back{margin-left:auto;text-decoration:none;display:inline-flex;gap:10px;align-items:center;padding:10px 0}
+.back svg{width:14px;height:14px;transition:transform .3s var(--ease)}
+.btn{display:inline-block;background:var(--azul);color:var(--papel);font:500 15px/1 var(--texto);padding:16px 22px;text-decoration:none;transition:transform .2s}
+.btn:hover{background:#38568a}
+.btn:active{transform:translateY(1px)}
+.top .btn{padding:14px 16px;font-size:13px}
+.btn--light{background:var(--mostarda);color:var(--tinta)}
+.btn--light:hover{background:#ecc15c}
+:focus-visible{outline:2px solid var(--azul);outline-offset:4px}
+.dark :focus-visible,.blue :focus-visible,.foot :focus-visible{outline-color:var(--mostarda)}
+section[id],[id].fim{scroll-margin-top:24px}
+.fim__acts{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.btn--ghost{background:transparent;color:var(--papel);box-shadow:inset 0 0 0 1px rgba(251,248,242,.45);transition:background .2s,color .2s,box-shadow .2s}
+.btn--ghost:hover{background:var(--papel);color:var(--tinta);box-shadow:inset 0 0 0 1px var(--papel)}
+
+/* hero do case */
+.c-hero{padding:96px 0 0}
+.c-hero .sub{font:400 clamp(24px,3vw,38px)/1.2 var(--display);letter-spacing:-.015em;margin-top:28px;max-width:20ch;color:var(--azul)}
+.c-hero .lead{font-size:clamp(18px,1.6vw,21px);line-height:1.55;max-width:56ch;margin-top:28px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:72px;border-top:2px solid var(--tinta)}
+.facts div{padding-top:16px}
+.facts dt{font:500 12px var(--texto);letter-spacing:.12em;text-transform:uppercase;color:#4C5873}
+.facts dd{font:500 clamp(20px,2vw,26px)/1.2 var(--display);margin-top:6px}
+.facts dd b{color:var(--terracota-t);font-weight:500}
+.cover{margin-top:72px}
+
+/* figuras */
+figure{background:var(--papel);border:1px solid var(--linha);min-width:0}
+figure a{display:block;cursor:zoom-in}
+figcaption{font-size:13.5px;color:#4C5873;padding:14px 18px;border-top:1px solid var(--linha)}
+.dark figure{border-color:transparent}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.scroll img{min-width:960px}
+.hint{display:none}
+
+/* diagramas redesenhados na identidade jotta */
+.dg{display:block;width:100%;height:auto;font-family:var(--texto)}
+.scroll .dg{min-width:880px}
+.dg text{fill:var(--tinta)}
+.dg .bx{fill:var(--papel);stroke:rgba(31,42,68,.24);stroke-width:2.5}
+.dg .hl{fill:#E2E7EE;stroke:var(--azul);stroke-width:4}
+.dg .gy{fill:var(--areia)}
+.dg .ds{fill:none;stroke-dasharray:12 10}
+.dg .ar{stroke:#8A93A6;stroke-width:2.5;fill:none}
+.dg .ar.ds{stroke-dasharray:8 7}
+.dg .h{font:500 40px var(--display);letter-spacing:-.01em}
+.dg .t{font:500 31px var(--display)}
+.dg .s{font-size:25px;fill:#4C5873}
+.dg .k{font-size:25px}
+.dg .m{text-anchor:middle}
+.dg .b2 .t{font-size:30px}
+.dg .b2 .s,.dg .b2 .k{font-size:23px}
+.dg .b2 .s2{font-size:22px}
+/* diagramas sem quadro: o fundo é a própria seção */
+figure.plain{background:none;border:0}
+figure.plain figcaption{border:0;padding:8px 0 0}
+figure.plain .hint{padding:0 0 10px}
+.dg .gy{fill:rgba(31,42,68,.06)}
+.dark .dg text{fill:var(--papel)}
+.dark .dg .s{fill:#B9C1D3}
+.dark .dg .bx{fill:#25304C;stroke:rgba(251,248,242,.22)}
+.dark .dg .hl{fill:#32466B;stroke:var(--nevoa)}
+.dark .dg .gy{fill:rgba(251,248,242,.07)}
+.dark .dg .ds{fill:none}
+.dark .dg .ar{stroke:#8D97AE}
+.dark figure.plain figcaption,.dark figure.plain .hint{color:#B9C1D3}
+
+/* texto do case */
+.case-grid{display:grid;grid-template-columns:5fr 7fr;gap:40px 64px;align-items:start}
+.case-grid > :first-child{position:sticky;top:40px}
+.prose{display:grid;gap:22px;max-width:62ch}
+.prose h3{margin-top:18px}
+.prose strong{font-weight:600}
+.callout{border-left:3px solid var(--mostarda);padding:4px 0 4px 22px;font:400 clamp(20px,2vw,24px)/1.4 var(--display);letter-spacing:-.01em}
+.figs{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;margin-top:64px}
+
+/* três frentes */
+.fronts{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 24px;margin-top:64px}
+.fronts>div{border-top:2px solid var(--tinta);padding-top:16px;position:relative}
+.fronts svg{width:44px;height:44px;margin-bottom:18px;transition:transform .5s var(--ease)}
+.n{font:500 12px var(--texto);letter-spacing:.12em;text-transform:uppercase;color:#4C5873}
+.fronts h3{margin:6px 0 8px}
+.fronts p{font-size:15.5px;color:#4C5873}
+
+/* skills do MVP */
+.skills{margin-top:56px;border-top:2px solid var(--tinta);list-style:none}
+.skills li{display:grid;grid-template-columns:80px 280px 1fr auto;gap:24px;align-items:baseline;padding:26px 0;border-bottom:1px solid var(--linha)}
+.skills .i{font:500 14px var(--texto);color:#4C5873;font-variant-numeric:tabular-nums}
+.skills b{font:500 clamp(22px,2.4vw,30px)/1.1 var(--display);letter-spacing:-.01em}
+.skills span{font-size:15.5px;color:#4C5873}
+.tag{font:500 12px/1 var(--texto);letter-spacing:.06em;background:var(--mostarda);color:var(--tinta);padding:7px 10px;white-space:nowrap}
+.skills b,.skills .i{transition:transform .35s var(--ease)}
+
+/* fases do handoff */
+.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
+.phase{background:#2A3554;padding:32px 28px 30px;display:flex;flex-direction:column;gap:14px}
+.phase .n{color:var(--mostarda)}
+.phase h3{font-size:clamp(24px,2.4vw,30px)}
+.phase .goal{font-size:15px;color:#DCE4F1;padding-bottom:16px;border-bottom:1px solid rgba(251,248,242,.18)}
+.phase ul{list-style:none;display:grid;gap:10px;font-size:15px;color:#B9C1D3}
+.phase li{padding-left:20px;position:relative}
+.phase li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;background:var(--azul)}
+.phase:nth-child(1) li::before{background:var(--mostarda)}
+.phase:nth-child(2) li::before{background:var(--nevoa)}
+.phase:nth-child(3) li::before{background:var(--terracota);border-radius:50%}
+.result{display:grid;grid-template-columns:5fr 7fr;gap:40px 64px;align-items:end;margin-top:96px;padding-top:40px;border-top:1px solid rgba(251,248,242,.2)}
+.result h3{font-size:clamp(40px,5.4vw,72px);line-height:1;letter-spacing:-.02em}
+.result h3 em{font-style:normal;color:var(--mostarda)}
+.dark .prose{color:#DCE4F1}
+
+/* impacto */
+.big{display:grid;grid-template-columns:auto 1fr;gap:24px 48px;align-items:end;margin-top:56px}
+.big svg{display:block;height:calc(clamp(120px,20vw,260px)*.727);width:auto;fill:currentColor;overflow:visible}
+.big p{font:400 clamp(20px,2.2vw,28px)/1.3 var(--display);max-width:22ch;padding-bottom:12px}
+.big small{display:block;font:400 15px/1.55 var(--texto);color:#DCE4F1;margin-top:14px;max-width:44ch}
+.done{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:88px}
+.done li{border-top:1px solid rgba(251,248,242,.35);padding-top:14px;font-size:15.5px}
+.done li::before{content:"";display:block;width:14px;height:14px;background:var(--mostarda);margin-bottom:14px;clip-path:polygon(0 100%,100% 0,100% 100%)}
+
+/* fecho */
+.closing blockquote{font:400 clamp(28px,3.8vw,48px)/1.16 var(--display);letter-spacing:-.02em;max-width:24ch}
+.closing blockquote em{font-style:normal;color:var(--azul)}
+.next{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center;margin-top:88px;padding-top:28px;border-top:2px solid var(--tinta)}
+
+.pattern{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));grid-auto-rows:0;grid-template-rows:auto;overflow:hidden}
+.pattern svg{width:100%;height:auto;transition:transform .6s cubic-bezier(.7,0,.2,1)}
+.fim{padding:120px 0;text-align:center}
+.fim h2{margin-top:8px}
+.fim .lead{margin:26px auto 36px;color:#B9C1D3;max-width:520px;font-size:clamp(18px,1.6vw,21px)}
+.foot{background:var(--tinta);color:#8D97AE;font-size:13px;padding:0 0 max(32px,env(safe-area-inset-bottom))}
+.foot .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid rgba(251,248,242,.15);padding-top:24px}
+
+/* animações de entrada e hover */
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+@media (hover:hover){
+  .back:hover svg{transform:translateX(-4px)}
+  .fronts>div:hover svg{transform:rotate(90deg)}
+  .fronts>div:hover h3{color:var(--azul)}
+  .skills li:hover b,.skills li:hover .i{transform:translateX(10px)}
+  .skills li:hover b{color:var(--azul)}
+  .pattern svg:hover{transform:rotate(90deg)}
+}
+
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.skip{position:absolute;left:16px;top:-80px;z-index:10;background:var(--tinta);color:var(--papel);padding:12px 16px;font-size:14px;text-decoration:none}
+.skip:focus{top:16px}
+a,button{touch-action:manipulation;-webkit-tap-highlight-color:rgba(67,101,154,.2)}
+
+@media (max-width:960px){
+  .case-grid,.result{grid-template-columns:1fr}
+  .case-grid > :first-child{position:static}
+  .skills li{grid-template-columns:48px 1fr;row-gap:6px}
+  .skills span{grid-column:2}
+  .skills .tag{grid-column:2;justify-self:start}
+  .phases{grid-template-columns:1fr}
+}
+@media (max-width:860px){
+  section{padding:84px 0}
+  body{font-size:16px}
+  .wrap{padding:0 max(18px,env(safe-area-inset-right)) 0 max(18px,env(safe-area-inset-left))}
+  .top .wrap{gap:16px}
+  .top .btn{display:none}
+  .c-hero{padding-top:64px}
+  .facts{grid-template-columns:1fr 1fr;row-gap:28px}
+  .fronts{grid-template-columns:1fr}
+  .big{grid-template-columns:1fr}
+  .hint{display:block;font-size:12.5px;color:#4C5873;padding:10px 18px 0}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important}
+  .js .rv{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+
+<!-- símbolos da marca (iguais aos da index.html) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="sym" viewBox="40 0 80 120">
+      <path d="M72 72V40L40 72Z" style="fill:var(--c-tri)"/>
+      <circle cx="100" cy="20" r="16" style="fill:var(--c-dot)"/>
+      <path d="M80 40H120V80A40 40 0 0 1 40 80H80Z" style="fill:var(--c-body)"/>
+    </symbol>
+    <symbol id="wm" viewBox="0 -2 195 90">
+      <g fill="none" stroke-width="10" style="stroke:var(--c-wm)">
+        <path d="M25 20V65A15 15 0 0 1 10 80H4"/><circle cx="60" cy="40" r="15.6"/>
+        <path d="M100 6V60M128 6V60M90 25H140"/><circle cx="170" cy="40" r="15.6"/><path d="M185 20V60"/>
+      </g>
+      <circle cx="25" cy="7" r="6.5" style="fill:var(--c-dot)"/>
+    </symbol>
+    <symbol id="lockH" viewBox="0 0 178 70">
+      <use href="#sym" x="0" y="5" width="40" height="60"/>
+      <use href="#wm" x="60" y="7.8" width="117" height="54"/>
+    </symbol>
+  </defs>
+</svg>
+
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<header class="top">
+  <div class="wrap">
+    <a href="index.html" aria-label="jotta, início"><svg viewBox="0 0 178 70" width="96" aria-hidden="true"><use href="#lockH"/></svg></a>
+    <a class="back" href="index.html#cases"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M13 7H2M6 2.5 1.5 7 6 11.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Voltar para os cases</a>
+    <a class="btn" href="index.html#contato">Entrar em contato</a>
+  </div>
+</header>
+
+<main id="conteudo">
+<!-- TOPO DO CASE -->
+<section class="c-hero">
+  <div class="wrap">
+    <p class="num">Case 01 · <span translate="no">Quero Delivery</span></p>
+    <h1 translate="no">Harness Design</h1>
+    <p class="sub">Redesenhando o workflow de UX com inteligência artificial</p>
+    <p class="lead muted">Como projetei uma arquitetura de agentes e skills para otimizar processos, reduzir gargalos operacionais e transformar a maneira como um time de UX trabalha.</p>
+    <dl class="facts">
+      <div><dt>Empresa</dt><dd translate="no">Quero Delivery</dd></div>
+      <div><dt>Papel</dt><dd>Product Design</dd></div>
+      <div><dt>Ano</dt><dd>2026</dd></div>
+      <div><dt>Resultado</dt><dd><b>−40%</b> de tempo em atividades-chave</dd></div>
+    </dl>
+    <figure class="cover plain rv">
+      <p class="hint" aria-hidden="true">Arraste para o lado para ver o diagrama inteiro</p>
+      <div class="scroll" tabindex="0" role="region" aria-label="Diagrama da arquitetura do Harness, role para o lado"><svg class="dg" viewBox="0 0 2000 1333" role="img" aria-labelledby="dg1-t dg1-d">
+        <title id="dg1-t">Arquitetura do Harness Design</title>
+        <desc id="dg1-d">O designer fala com o Orquestrador de Projeto, por comando ou conversa. O Orquestrador lê o estado, escolhe o agente e segura os portões. Ele aciona três agentes: Descoberta (kickoff, CSD, jornadas, fluxos e requisitos), Revisor de Design (tokens, padrões e acessibilidade) e Handoff (documentação de telas, componentes e métricas). Os agentes usam as skills, 14 na v1 e 22 no total, com passo a passo, formato de saída e exemplos do time, no plugin harness-ux. As skills usam os conectores Notion, Figma/FigJam, Jira e Drive, com acesso limitado pela matriz de permissões. Ao lado ficam o Estado, um doc do projeto no Notion com etapa, portões, decisões, links e pendências, e o Controle: portões humanos, guardrails, matriz de permissões e registro das execuções. Na v2, Pesquisa e Fluxos substituem a Descoberta e entra o Agente de Insights para as etapas 00, 05, 12 e 13.</desc>
+        <defs><marker id="dg1-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#8A93A6"/></marker></defs>
+        <text class="h" x="188" y="62">O designer fala só com o Orquestrador; estado e controle atravessam tudo</text>
+        <rect class="bx" x="507" y="110" width="548" height="100" rx="12"/>
+        <text class="t m" x="781" y="171">Designer</text>
+        <line class="ar" x1="781" y1="210" x2="781" y2="288" marker-end="url(#dg1-a)"/>
+        <text class="s" x="805" y="262">comando ou conversa</text>
+        <rect class="bx hl" x="187" y="293" width="1190" height="137" rx="12"/>
+        <text class="t m" x="782" y="350">Orquestrador de Projeto</text>
+        <text class="s m" x="782" y="396">lê o estado, escolhe o agente, segura os portões</text>
+        <line class="ar" x1="1377" y1="361" x2="1426" y2="361" marker-end="url(#dg1-a)"/>
+        <rect class="bx" x="1431" y="293" width="383" height="384" rx="12"/>
+        <text class="t" x="1467" y="350">Estado</text>
+        <text class="k" x="1467" y="400">Doc do projeto</text>
+        <text class="k" x="1467" y="436">no Notion</text>
+        <text class="s" x="1467" y="492">etapa, portões,</text>
+        <text class="s" x="1467" y="528">decisões, links</text>
+        <text class="s" x="1467" y="564">e pendências</text>
+        <line class="ar" x1="372" y1="430" x2="372" y2="508" marker-end="url(#dg1-a)"/>
+        <line class="ar" x1="781" y1="430" x2="781" y2="508" marker-end="url(#dg1-a)"/>
+        <line class="ar" x1="1190" y1="430" x2="1190" y2="508" marker-end="url(#dg1-a)"/>
+        <rect class="bx" x="187" y="513" width="370" height="164" rx="12"/>
+        <text class="t m" x="372" y="569">Descoberta</text>
+        <text class="s m" x="372" y="614">kickoff, CSD, jornadas</text>
+        <text class="s m" x="372" y="650">fluxos e requisitos</text>
+        <rect class="bx" x="596" y="513" width="370" height="164" rx="12"/>
+        <text class="t m" x="781" y="569">Revisor de Design</text>
+        <text class="s m" x="781" y="614">tokens e padrões</text>
+        <text class="s m" x="781" y="650">acessibilidade</text>
+        <rect class="bx" x="1005" y="513" width="370" height="164" rx="12"/>
+        <text class="t m" x="1190" y="569">Handoff</text>
+        <text class="s m" x="1190" y="614">documentação de telas</text>
+        <text class="s m" x="1190" y="650">componentes e métricas</text>
+        <line class="ar" x1="372" y1="677" x2="372" y2="754" marker-end="url(#dg1-a)"/>
+        <line class="ar" x1="781" y1="677" x2="781" y2="754" marker-end="url(#dg1-a)"/>
+        <line class="ar" x1="1190" y1="677" x2="1190" y2="754" marker-end="url(#dg1-a)"/>
+        <rect class="bx gy" x="187" y="759" width="1190" height="119" rx="12"/>
+        <text class="t m" x="782" y="809">Skills · 14 na v1, 22 no total</text>
+        <text class="s m" x="782" y="852">passo a passo, formato de saída e exemplos do time, no plugin harness-ux</text>
+        <line class="ar" x1="781" y1="878" x2="781" y2="956" marker-end="url(#dg1-a)"/>
+        <rect class="bx" x="187" y="961" width="1190" height="201" rx="12"/>
+        <text class="t" x="224" y="1012">Conectores</text>
+        <text class="s" x="1338" y="1011" text-anchor="end">acesso limitado pela matriz de permissões</text>
+        <rect class="bx" x="224" y="1038" width="258" height="92" rx="12"/>
+        <text class="k m" x="353" y="1093">Notion</text>
+        <rect class="bx" x="510" y="1038" width="258" height="92" rx="12"/>
+        <text class="k m" x="639" y="1093">Figma/FigJam</text>
+        <rect class="bx" x="795" y="1038" width="258" height="92" rx="12"/>
+        <text class="k m" x="924" y="1093">Jira</text>
+        <rect class="bx" x="1081" y="1038" width="258" height="92" rx="12"/>
+        <text class="k m" x="1210" y="1093">Drive</text>
+        <rect class="bx" x="1431" y="713" width="383" height="449" rx="12"/>
+        <text class="t" x="1467" y="770">Controle</text>
+        <text class="k" x="1467" y="820">portões humanos</text>
+        <text class="k" x="1467" y="857">guardrails</text>
+        <text class="k" x="1467" y="893">matriz de permissões</text>
+        <text class="k" x="1467" y="930">registro das execuções</text>
+        <line class="ar ds" x1="1429" y1="1060" x2="1382" y2="1060" marker-end="url(#dg1-a)"/>
+        <rect class="bx ds" x="187" y="1217" width="1627" height="73" rx="12"/>
+        <text class="s m" x="1000" y="1262">v2 · Pesquisa e Fluxos substituem a Descoberta; entra o Agente de Insights para as etapas 00, 05, 12 e 13</text>
+      </svg></div>
+      <figcaption>A arquitetura do Harness: o designer conversa só com o Orquestrador, e estado e controle atravessam todas as etapas.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 01 DESAFIO -->
+<section id="desafio">
+  <div class="wrap">
+    <div class="case-grid">
+      <div>
+        <p class="num">01 · O desafio</p>
+        <h2 class="rv">Identificar onde a IA poderia gerar valor</h2>
+      </div>
+      <div class="prose rv">
+        <p>Antes de pensar em soluções com IA, o primeiro passo foi entender profundamente nosso processo de trabalho.</p>
+        <p>Em parceria com o time de UX, conduzi uma análise do workflow para identificar as atividades que mais demandavam tempo, os principais gargalos e as oportunidades de otimização.</p>
+        <p class="callout">O objetivo não era simplesmente automatizar tarefas, mas tornar o processo mais eficiente sem comprometer a qualidade das entregas e a consistência metodológica do time.</p>
+        <p>Para isso, mapeamos todo o fluxo de trabalho no <span translate="no">FigJam</span> e centralizamos no <span translate="no">Notion</span> nossa documentação analítica, reunindo processos, diretrizes, critérios e referências utilizados durante a execução dos projetos.</p>
+        <p>O resultado foi uma visão estruturada de todo o nosso processo, permitindo identificar onde a IA poderia atuar de forma estratégica.</p>
+      </div>
+    </div>
+    <div class="figs">
+      <figure class="rv">
+        <p class="hint" aria-hidden="true">Arraste para o lado para ver o fluxo inteiro</p>
+        <div class="scroll" tabindex="0" role="region" aria-label="Workflow de UX no FigJam, role para o lado"><a href="assets/img/cases/harness-design/workflow-ux.webp"><img loading="lazy" src="assets/img/cases/harness-design/workflow-ux.webp" width="2000" height="418" alt="Workflow de UX Design mapeado no FigJam em 14 etapas, de 00 a 13: Backlog UX, Descoberta (kickoff, imersão, priorização, alinhamento), Planejamento, Construção (rascunhos, alinhamento, refinamento, testes), Entrega (handoff, alinhamento) e Produção (pré e pós-lançamento). Cada etapa lista frameworks, ferramentas e participantes."></a></div>
+        <figcaption>O workflow do time mapeado no <span translate="no">FigJam</span>: 14 etapas, com frameworks, ferramentas e participantes de cada uma.</figcaption>
+      </figure>
+      <figure class="rv">
+        <a href="assets/img/cases/harness-design/checklist-eap.webp"><img loading="lazy" src="assets/img/cases/harness-design/checklist-eap.webp" width="2000" height="1072" alt="Página do Notion chamada Checklist UX, EAP de Design, com a Estrutura Analítica de Projeto de Design, uma legenda para tarefas obrigatórias e um aviso de que o fluxo de design é iterativo."></a>
+        <figcaption>A documentação analítica no <span translate="no">Notion</span>: a Estrutura Analítica de Projeto (EAP) de Design, que virou a base de conhecimento do Harness.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 02 ESTRATÉGIA -->
+<section id="estrategia" style="background:var(--papel)">
+  <div class="wrap">
+    <div class="case-grid">
+      <div>
+        <p class="num">02 · Estratégia</p>
+        <h2 class="rv">Projetando a arquitetura do Harness</h2>
+      </div>
+      <div class="prose rv">
+        <p>Com os gargalos identificados, meu próximo desafio foi transformar esse mapeamento em uma arquitetura capaz de integrar inteligência artificial ao nosso workflow.</p>
+        <p>Iniciei a estruturação do Harness Design com o apoio do <span translate="no">Claude</span>, utilizando nossa documentação como base para projetar um sistema contextualizado com a realidade do time.</p>
+        <p>A estratégia foi organizar nosso conhecimento para que a LLM não apenas executasse comandos, mas compreendesse nosso processo, respeitasse nossas diretrizes e apoiasse os designers em atividades específicas. Para isso, trabalhei em três frentes:</p>
+      </div>
+    </div>
+    <div class="fronts">
+      <div class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" fill="#43659A"/></svg><span class="n">01 · Knowledge Base</span><h3>Centralização do conhecimento</h3><p>Unifiquei nossa documentação em um manual de processos, estruturando as informações necessárias para orientar a execução das atividades.</p></div>
+      <div class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20" fill="#D4764E"/></svg><span class="n">02 · Context Engineering</span><h3>Contextualização da LLM</h3><p>Disponibilizei a documentação como fonte de conhecimento, para que a LLM compreendesse nosso workflow, nossas regras e os padrões de construção dos projetos.</p></div>
+      <div class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M44 44V4L4 44Z" fill="#E2B44A"/></svg><span class="n">03 · Agents &amp; Skills</span><h3>Definição da arquitetura</h3><p>A partir do mapeamento do processo, identifiquei as oportunidades de aplicação de IA e defini os agentes e skills necessários para apoiar cada etapa.</p></div>
+    </div>
+    <p class="callout rv" style="margin-top:64px;max-width:44ch">Com essa arquitetura inicial definida, estabeleci um MVP para testar a solução em situações reais de trabalho.</p>
+  </div>
+</section>
+
+<!-- 03 MVP -->
+<section id="mvp">
+  <div class="wrap">
+    <div class="case-grid">
+      <div>
+        <p class="num">03 · MVP</p>
+        <h2 class="rv">Transformando oportunidades em soluções</h2>
+      </div>
+      <div class="prose rv">
+        <p>Para validar a arquitetura, priorizei as atividades com maior potencial de otimização, especialmente nas etapas de Discovery e Construção. A partir disso, desenvolvi junto com o time e testei quatro skills.</p>
+        <p>Cada skill foi estruturada considerando o contexto de aplicação, as referências necessárias e as regras específicas de execução.</p>
+        <p>Mais do que validar a capacidade da IA de gerar respostas, o objetivo era verificar se ela conseguiria executar atividades <strong>seguindo nosso método de trabalho</strong>.</p>
+      </div>
+    </div>
+    <ul class="skills">
+      <li class="rv"><span class="i">01</span><b>Benchmarking</b><span>Apoiar pesquisas e análises de referências de mercado.</span></li>
+      <li class="rv"><span class="i">02</span><b>Handoff</b><span>Estruturar e documentar entregas para desenvolvimento.</span><em class="tag" style="font-style:normal">Maior impacto</em></li>
+      <li class="rv"><span class="i">03</span><b>Matriz CSD</b><span>Organizar certezas, suposições e dúvidas do projeto.</span></li>
+      <li class="rv"><span class="i">04</span><b>Análise Heurística</b><span>Apoiar avaliações de interfaces com base em princípios de usabilidade.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 04 DEEP DIVE: HANDOFF -->
+<section class="dark" id="handoff">
+  <div class="wrap">
+    <div class="case-grid">
+      <div>
+        <p class="num on-dark">04 · Deep dive</p>
+        <h2 class="rv">Projetando uma Skill de Handoff</h2>
+      </div>
+      <div class="prose rv">
+        <p>O Handoff era uma das atividades que mais demandavam tempo do time. Por envolver organização de informações, documentação, aplicação de componentes e validações, representava uma oportunidade importante de otimização.</p>
+        <p>Minha abordagem foi transformar todo o conhecimento operacional dessa atividade em uma estrutura que a LLM pudesse interpretar e executar.</p>
+        <h3>Estruturando a fonte de verdade</h3>
+        <p>Comecei documentando todo o processo de construção do Handoff diretamente no <span translate="no">Figma</span>: os componentes utilizados, as instruções de aplicação, as regras de construção e um exemplo real de entrega de um projeto.</p>
+        <p>Esse material passou a funcionar como a fonte de verdade da skill. Para complementar o contexto, também disponibilizei a documentação de kickoff dos projetos, para que a IA acessasse informações específicas antes de iniciar a montagem.</p>
+        <h3>Projetando a arquitetura de execução</h3>
+        <p>Em vez de pedir que a IA construísse todo o Handoff de uma única vez, dividi o processo em três fases independentes e complementares. Isso criou pontos de validação humana, aumentou a previsibilidade das entregas e estabeleceu um mecanismo de evolução contínua.</p>
+      </div>
+    </div>
+
+    <div class="phases">
+      <div class="phase rv">
+        <span class="n">Fase A</span><h3>Revisão</h3>
+        <p class="goal">Garantir a consistência e a qualidade antes da montagem.</p>
+        <ul>
+          <li>Analisa o checklist de construção e os critérios definidos na documentação.</li>
+          <li>Identifica inconsistências, possíveis ajustes e pontos de atenção.</li>
+          <li>Gera um relatório detalhado para validação do designer.</li>
+          <li>As correções são feitas pelo próprio designer ou pela IA, conforme a orientação recebida.</li>
+        </ul>
+      </div>
+      <div class="phase rv">
+        <span class="n">Fase B</span><h3>Montagem</h3>
+        <p class="goal">Transformar as informações do projeto em uma entrega estruturada.</p>
+        <ul>
+          <li>Consulta a documentação de kickoff para coletar as informações necessárias.</li>
+          <li>Organiza os dados encontrados e apresenta um resumo para confirmação.</li>
+          <li>Aguarda a aprovação e a autorização do designer.</li>
+          <li>Monta o Handoff no local indicado, seguindo os componentes, padrões e instruções documentados.</li>
+        </ul>
+      </div>
+      <div class="phase rv">
+        <span class="n">Fase C</span><h3>Aprendizados</h3>
+        <p class="goal">Tornar a solução evolutiva a partir das interações com o time.</p>
+        <ul>
+          <li>Identifica os ajustes solicitados pelo designer.</li>
+          <li>Organiza os padrões e aprendizados identificados durante as interações.</li>
+          <li>Retorna um registro do que foi aprendido, para o aprimoramento contínuo da skill.</li>
+        </ul>
+      </div>
+    </div>
+
+    <figure class="plain rv" style="margin-top:56px">
+      <p class="hint" aria-hidden="true">Arraste para o lado para ver o diagrama inteiro</p>
+      <div class="scroll" tabindex="0" role="region" aria-label="Diagrama da skill de Handoff, role para o lado"><svg class="dg" viewBox="0 0 1824 1262" role="img" aria-labelledby="dg2-t dg2-d">
+        <title id="dg2-t">Estrutura da skill de Handoff</title>
+        <desc id="dg2-d">O designer aciona a skill pelo comando /handoff ou em conversa. O SKILL.md, roteiro do handoff, faz as duas perguntas, lê o contexto e pede confirmação antes de escrever. Antes de tudo, no passo 0, recebe as entradas: link do kickoff no Notion, link do Figma e squad do projeto. Dele saem três etapas: Revisão, fase A (checklist do time, relatório e pausa); Montagem, fase B (Ficha, títulos e telas, setas, condicionais e cards); e Fechamento (Notion e validação, conquistas, se houve ajustes). Todas usam as referências, 4 arquivos em references/: regras-handoff, kit-e-layout, ficha-e-regras e aprendizados. As referências usam os conectores Notion e Figma, com leitura livre e escrita só com o sim do designer. Os limites: telas originais intactas, sem inventar regras, sem mexer na biblioteca, sem marcar Ready for Dev e sem enviar a ninguém. Pedidos parciais também são previstos: só revisa faz a fase A; só a Ficha, só esse fluxo e handoffs existentes.</desc>
+        <defs><marker id="dg2-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#8A93A6"/></marker></defs>
+        <g class="b2">
+        <text class="h" x="200" y="110">O designer aciona a skill; referências e limites atravessam tudo</text>
+        <rect class="bx" x="481" y="156" width="486" height="89" rx="12"/>
+        <text class="t m" x="724" y="211">Designer</text>
+        <line class="ar" x1="724" y1="245" x2="724" y2="312" marker-end="url(#dg2-a)"/>
+        <text class="s" x="750" y="288">/handoff ou conversa</text>
+        <rect class="bx hl" x="200" y="317" width="1049" height="123" rx="12"/>
+        <text class="t m" x="724" y="370">SKILL.md · roteiro do handoff</text>
+        <text class="s m" x="724" y="412">faz as duas perguntas, lê o contexto, pede confirmação antes de escrever</text>
+        <line class="ar" x1="1249" y1="376" x2="1291" y2="376" marker-end="url(#dg2-a)"/>
+        <rect class="bx" x="1296" y="317" width="340" height="339" rx="12"/>
+        <text class="t" x="1326" y="370">Entradas</text>
+        <text class="k" x="1326" y="414">passo 0, antes de tudo</text>
+        <text class="s" x="1326" y="468">link do kickoff</text>
+        <text class="s" x="1326" y="510">no Notion</text>
+        <text class="s" x="1326" y="552">link do Figma</text>
+        <text class="s" x="1326" y="596">squad do projeto</text>
+        <line class="ar" x1="367" y1="440" x2="367" y2="507" marker-end="url(#dg2-a)"/>
+        <line class="ar" x1="724" y1="440" x2="724" y2="507" marker-end="url(#dg2-a)"/>
+        <line class="ar" x1="1082" y1="440" x2="1082" y2="507" marker-end="url(#dg2-a)"/>
+        <rect class="bx" x="200" y="512" width="332" height="144" rx="12"/>
+        <text class="t m" x="366" y="561">Revisão · Fase A</text>
+        <text class="s s2 m" x="366" y="603">checklist do time</text>
+        <text class="s s2 m" x="366" y="641">relatório e pausa</text>
+        <rect class="bx" x="558" y="512" width="332" height="144" rx="12"/>
+        <text class="t m" x="724" y="561">Montagem · Fase B</text>
+        <text class="s s2 m" x="724" y="603">Ficha, títulos e telas</text>
+        <text class="s s2 m" x="724" y="641">setas, condicionais e cards</text>
+        <rect class="bx" x="917" y="512" width="332" height="144" rx="12"/>
+        <text class="t m" x="1083" y="561">Fechamento</text>
+        <text class="s s2 m" x="1083" y="603">Notion e validação</text>
+        <text class="s s2 m" x="1083" y="641">conquistas, se houve ajustes</text>
+        <line class="ar" x1="367" y1="656" x2="367" y2="723" marker-end="url(#dg2-a)"/>
+        <line class="ar" x1="724" y1="656" x2="724" y2="723" marker-end="url(#dg2-a)"/>
+        <line class="ar" x1="1082" y1="656" x2="1082" y2="723" marker-end="url(#dg2-a)"/>
+        <rect class="bx gy" x="200" y="728" width="1049" height="105" rx="12"/>
+        <text class="t m" x="724" y="772">Referências · 4 arquivos em references/</text>
+        <text class="s m" x="724" y="812">regras-handoff · kit-e-layout · ficha-e-regras · aprendizados</text>
+        <line class="ar" x1="724" y1="833" x2="724" y2="901" marker-end="url(#dg2-a)"/>
+        <rect class="bx" x="200" y="906" width="1049" height="173" rx="12"/>
+        <text class="t" x="235" y="952">Conectores</text>
+        <text class="s" x="1219" y="950" text-anchor="end">leitura livre, escrita só com o “sim” do designer</text>
+        <rect class="bx" x="234" y="974" width="478" height="80" rx="12"/>
+        <text class="k m" x="473" y="1022">Notion</text>
+        <rect class="bx" x="737" y="974" width="478" height="80" rx="12"/>
+        <text class="k m" x="976" y="1022">Figma</text>
+        <rect class="bx" x="1296" y="703" width="340" height="376" rx="12"/>
+        <text class="t" x="1326" y="756">Limites</text>
+        <text class="k" x="1326" y="804">telas originais intactas</text>
+        <text class="k" x="1326" y="849">sem inventar regras</text>
+        <text class="k" x="1326" y="895">sem mexer na biblioteca</text>
+        <text class="k" x="1326" y="938">sem “Ready for Dev”</text>
+        <text class="k" x="1326" y="982">sem enviar a ninguém</text>
+        <line class="ar ds" x1="1294" y1="994" x2="1256" y2="994" marker-end="url(#dg2-a)"/>
+        <rect class="bx ds" x="200" y="1126" width="1436" height="80" rx="12"/>
+        <text class="s m" x="918" y="1174">Pedidos parciais · “só revisa” faz a Fase A; “só a Ficha”, “só esse fluxo” e handoffs existentes também são previstos</text>
+        </g>
+      </svg></div>
+      <figcaption>Como a skill de Handoff funciona: entradas, fases, referências, conectores e os limites que o designer controla.</figcaption>
+    </figure>
+
+    <p class="prose rv" style="margin-top:40px;color:#DCE4F1">Essa estrutura estabeleceu um fluxo no qual a IA atua na execução, mas o designer continua participando das decisões e validações importantes.</p>
+
+    <div class="result">
+      <h3 class="rv">De horas<br>para <em>minutos</em>.</h3>
+      <div class="prose rv">
+        <p>O que antes demandava horas de trabalho passou a ser resolvido em minutos.</p>
+        <p>Além da redução no tempo de execução, conseguimos estabelecer um processo mais padronizado, diminuir o esforço operacional e liberar tempo do designer para atividades que exigem maior análise, criatividade e tomada de decisão.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 IMPACTO -->
+<section class="blue" id="impacto">
+  <div class="wrap">
+    <p class="num on-dark">05 · Impacto</p>
+    <h2 class="rv">Eficiência operacional e evolução contínua</h2>
+    <div class="big rv">
+      <svg viewBox="18 -714 1945 727" role="img" aria-label="40%"><path d="M413-700L18-134L594-134L594-236L451-236L434-228L191-228L371-489L371-187L363-176L363 0L484 0L484-700L413-700ZM745-350L745-350Q745-406 756-453Q767-500 787.5-534Q808-568 837-586.5Q866-605 902-605L902-605Q938-605 966.5-586.5Q995-568 1015.5-534Q1036-500 1047-453Q1058-406 1058-350L1058-350Q1058-294 1047-247Q1036-200 1015.5-166Q995-132 966.5-113.5Q938-95 902-95L902-95Q866-95 837-113.5Q808-132 787.5-166Q767-200 756-247Q745-294 745-350ZM629-350L629-350Q629-241 663.5-160Q698-79 759.5-34Q821 11 902 11L902 11Q984 11 1045-34Q1106-79 1140-160Q1174-241 1174-350L1174-350Q1174-459 1140-540Q1106-621 1045-666Q984-711 902-711L902-711Q821-711 759.5-666Q698-621 663.5-540Q629-459 629-350ZM1204-544L1204-544Q1204-497 1225.5-458.5Q1247-420 1286-397Q1325-374 1374-374L1374-374Q1425-374 1463.5-397Q1502-420 1523.5-458.5Q1545-497 1545-544L1545-544Q1545-591 1523.5-629.5Q1502-668 1463.5-691Q1425-714 1374-714L1374-714Q1325-714 1286-691Q1247-668 1225.5-629.5Q1204-591 1204-544ZM1297-544L1297-544Q1297-567 1306.5-586Q1316-605 1333.5-616Q1351-627 1374-627L1374-627Q1399-627 1416-616Q1433-605 1443-586Q1453-567 1453-544L1453-544Q1453-522 1443-502.5Q1433-483 1416-471.5Q1399-460 1374-460L1374-460Q1351-460 1333.5-471.5Q1316-483 1306.5-502.5Q1297-522 1297-544ZM1622-157L1622-157Q1622-110 1643.5-71Q1665-32 1704-9.5Q1743 13 1792 13L1792 13Q1843 13 1881-9.5Q1919-32 1941-71Q1963-110 1963-157L1963-157Q1963-204 1941-242.5Q1919-281 1881-304Q1843-327 1792-327L1792-327Q1743-327 1704-304Q1665-281 1643.5-242.5Q1622-204 1622-157ZM1714-157L1714-157Q1714-180 1723.5-198.5Q1733-217 1750.5-228.5Q1768-240 1792-240L1792-240Q1817-240 1834-228.5Q1851-217 1860.5-198Q1870-179 1870-157L1870-157Q1870-135 1860.5-115.5Q1851-96 1834-84.5Q1817-73 1792-73L1792-73Q1768-73 1750.5-84.5Q1733-96 1723.5-115.5Q1714-135 1714-157ZM1880-700L1772-700L1287 0L1395 0L1880-700Z"/></svg>
+      <p>de redução no tempo dedicado a algumas atividades de Discovery e Construção.<small>Principal resultado mensurado na primeira versão, contribuindo diretamente para acelerar as entregas e otimizar o workflow do time.</small></p>
+    </div>
+    <h3 class="rv" style="margin-top:96px">O que a primeira versão entregou</h3>
+    <ul class="done" style="margin-top:32px">
+      <li class="rv">Arquitetura inicial do Harness estruturada.</li>
+      <li class="rv">Agentes e skills do workflow mapeados.</li>
+      <li class="rv">Documentação centralizada como fonte de conhecimento.</li>
+      <li class="rv">Quatro skills desenvolvidas e validadas.</li>
+      <li class="rv">Fluxo estruturado de execução e validação para o Handoff.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PRÓXIMOS PASSOS -->
+<section class="closing" id="proximos">
+  <div class="wrap">
+    <div class="case-grid">
+      <div>
+        <p class="num">Próximos passos</p>
+        <h2 class="rv">Um ecossistema que evolui com o time</h2>
+      </div>
+      <div class="prose rv">
+        <p>O Harness Design foi concebido como uma arquitetura evolutiva, não como uma solução estática.</p>
+        <p>A próxima etapa é expandir o ecossistema com novos agentes e skills, identificados a partir das necessidades que surgirem durante a execução dos projetos. A ideia é que a arquitetura cresça junto com o time, incorporando novos conhecimentos, processos e oportunidades de otimização.</p>
+      </div>
+    </div>
+    <blockquote class="rv" style="margin-top:96px">Mais do que automatizar tarefas, projetei uma nova camada de inteligência para o workflow: um sistema que <em>compreende nossos processos</em>, potencializa os designers e evolui com a operação.</blockquote>
+    <div class="next">
+      <a class="back" style="margin:0" href="index.html#cases"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M13 7H2M6 2.5 1.5 7 6 11.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Voltar para os cases</a>
+      <a class="btn" href="#contato">Conversar sobre este case</a>
+    </div>
+  </div>
+</section>
+
+<div class="pattern" id="pattern" aria-hidden="true"></div>
+
+<section class="fim dark" id="contato">
+  <div class="wrap">
+    <h2 class="rv">Vamos conversar<br>sobre o seu produto.</h2>
+    <p class="lead rv">Aberto a conversas sobre produto, design e novas oportunidades.</p>
+    <div class="fim__acts">
+      <a class="btn btn--light" href="mailto:joaopedroux@gmail.com">Enviar um e-mail</a>
+      <a class="btn btn--ghost" href="https://www.linkedin.com/in/jottaux/" target="_blank" rel="noopener" translate="no">LinkedIn<span class="sr-only"> (abre em nova aba)</span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot"><div class="wrap"><span translate="no">© 2026 João Pedro · Product Designer</span><span translate="no">jotta</span></div></footer>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});els.forEach(function(el){io.observe(el)})}else els.forEach(function(el){el.classList.add('in')});
+  setTimeout(function(){var vis=[].filter.call(els,function(el){return el.getBoundingClientRect().top<innerHeight});vis.forEach(function(el){el.classList.add("in")})},1500); /* lê tudo primeiro, depois escreve */
+  var el=document.getElementById('pattern'),C=['#43659A','#1F2A44','#C9D6EA','#D4764E','#E2B44A'],W=[5,2,3,1,1],bgs=['#F3ECDF','#FBF8F2','#C9D6EA','#43659A'];
+  function pick(x){return x[Math.floor(Math.random()*x.length)]}
+  function wpick(){var t=0,r=Math.random()*12;for(var i=0;i<C.length;i++){t+=W[i];if(r<t)return C[i]}return C[0]}
+  var S=[function(c){return '<circle cx="24" cy="24" r="18" fill="'+c+'"/>'},function(c){return '<path d="M0 48V0A48 48 0 0 1 48 48Z" transform="rotate('+pick([0,90,180,270])+' 24 24)" fill="'+c+'"/>'},function(c){return '<path d="M0 24H48A24 24 0 0 1 0 24Z" transform="rotate('+pick([0,90,180,270])+' 24 24)" fill="'+c+'"/>'},function(c){return '<path d="M0 0H48L0 48Z" transform="rotate('+pick([0,90,180,270])+' 24 24)" fill="'+c+'"/>'},function(c){return '<rect x="12" y="12" width="24" height="24" fill="'+c+'"/>'},function(){return ''}];
+  var s='';
+  for(var i=0;i<60;i++){var bg=pick(bgs),c=wpick();if(c===bg)c='#1F2A44';s+='<svg viewBox="0 0 48 48"><rect width="48" height="48" fill="'+bg+'"/>'+pick(S)(c)+'</svg>'}
+  el.innerHTML=s;
+})();
+</script>
+</body>
+</html>

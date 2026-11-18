@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Otimização da Home · João Pedro</title>
+<meta name="description" content="Case de João Pedro na Quero Delivery: dados comportamentais e psicologia cognitiva para simplificar a Home do app e reduzir o abandono na etapa inicial da jornada de 18% para 9%.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Otimização da Home, Quero Delivery">
+<meta property="og:description" content="Reduzindo a carga cognitiva e melhorando a descoberta de produtos.">
+<meta property="og:image" content="assets/img/cases/otimizacao-home/home-depois.png">
+<meta name="theme-color" content="#F3ECDF">
+<link rel="icon" href="brand/jotta_favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="brand/apple-touch-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Base: identidade visual jotta (mesma da index.html e do case Harness Design) */
+:root{
+  --areia:#F3ECDF;--papel:#FBF8F2;--nevoa:#C9D6EA;--azul:#43659A;--tinta:#1F2A44;
+  --terracota:#D4764E;--terracota-t:#A9532F;--mostarda:#E2B44A;
+  --c-tri:var(--mostarda);--c-dot:var(--terracota);--c-body:var(--azul);--c-wm:var(--tinta);
+  --linha:rgba(31,42,68,.14);
+  --display:'Jost','Century Gothic','Futura',sans-serif;
+  --texto:'Inter','Segoe UI',Arial,sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--areia);color:var(--tinta);font:17px/1.65 var(--texto);overflow-x:hidden}
+.wrap{max-width:1180px;margin:0 auto;padding:0 max(28px,env(safe-area-inset-right)) 0 max(28px,env(safe-area-inset-left))}
+svg{display:block}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:500;letter-spacing:-.02em;text-wrap:balance}
+h1{font-size:clamp(52px,8.4vw,120px);line-height:.94}
+h2{font-size:clamp(36px,5vw,64px);line-height:1.04}
+h3{font-size:clamp(21px,2.1vw,26px);line-height:1.2;letter-spacing:-.01em}
+p{text-wrap:pretty}
+.muted{color:#4C5873}
+.num{font:500 13px/1 var(--texto);letter-spacing:.16em;text-transform:uppercase;display:flex;gap:14px;align-items:center;margin-bottom:28px;color:var(--terracota-t)}
+.num::before{content:"";width:28px;height:2px;background:currentColor}
+.dark{background:var(--tinta);color:var(--papel)}
+.dark .muted{color:#B9C1D3}
+.blue{background:var(--azul);color:var(--papel)}
+.on-dark{color:var(--mostarda)}
+.paper{background:var(--papel)}
+section{padding:120px 0;position:relative}
+.tn{font-variant-numeric:tabular-nums}
+
+/* topo */
+.top{padding:max(28px,env(safe-area-inset-top)) 0 0}
+.top .wrap{display:flex;align-items:center;gap:28px;font-size:14px}
+.back{margin-left:auto;text-decoration:none;display:inline-flex;gap:10px;align-items:center;padding:10px 0}
+.back svg{width:14px;height:14px;transition:transform .3s var(--ease)}
+.btn{display:inline-block;background:var(--azul);color:var(--papel);font:500 15px/1 var(--texto);padding:16px 22px;text-decoration:none;transition:transform .2s}
+.btn:hover{background:#38568a}
+.btn:active{transform:translateY(1px)}
+.top .btn{padding:14px 16px;font-size:13px}
+.btn--light{background:var(--mostarda);color:var(--tinta)}
+.btn--light:hover{background:#ecc15c}
+:focus-visible{outline:2px solid var(--azul);outline-offset:4px}
+.dark :focus-visible,.blue :focus-visible,.foot :focus-visible{outline-color:var(--mostarda)}
+section[id],[id].fim{scroll-margin-top:24px}
+.fim__acts{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.btn--ghost{background:transparent;color:var(--papel);box-shadow:inset 0 0 0 1px rgba(251,248,242,.45);transition:background .2s,color .2s,box-shadow .2s}
+.btn--ghost:hover{background:var(--papel);color:var(--tinta);box-shadow:inset 0 0 0 1px var(--papel)}
+
+/* hero do case */
+.c-hero{padding:96px 0 0}
+.c-hero .sub{font:400 clamp(24px,3vw,38px)/1.2 var(--display);letter-spacing:-.015em;margin-top:28px;max-width:24ch;color:var(--azul)}
+.c-hero .lead{font-size:clamp(18px,1.6vw,21px);line-height:1.55;max-width:58ch;margin-top:28px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:72px;border-top:2px solid var(--tinta)}
+.facts div{padding-top:16px}
+.facts dt{font:500 12px var(--texto);letter-spacing:.12em;text-transform:uppercase;color:#4C5873}
+.facts dd{font:500 clamp(20px,2vw,26px)/1.2 var(--display);margin-top:6px}
+.facts dd b{color:var(--terracota-t);font-weight:500}
+
+/* antes e depois (capa) */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,5vw,72px);margin-top:72px;max-width:860px;margin-left:auto;margin-right:auto}
+.ba figure{min-width:0}
+.ba .lbl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;font:500 12px var(--texto);letter-spacing:.12em;text-transform:uppercase;color:#4C5873}
+.ba .lbl b{font:500 clamp(20px,2vw,26px)/1 var(--display);letter-spacing:-.01em;text-transform:none;color:var(--tinta)}
+.phone{background:var(--papel);border:1px solid var(--linha);border-radius:28px;padding:10px;box-shadow:0 30px 60px -36px rgba(31,42,68,.45)}
+.phone .screen{border-radius:20px;overflow:hidden;background:#fff}
+.phone{position:relative}
+.phone .screen{height:min(640px,150vw);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(31,42,68,.35) transparent}
+/* indicativo de rolagem: pílula com um ponto que sobe, como um dedo deslizando */
+.cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:10px;background:var(--tinta);color:var(--papel);font:500 13px/1 var(--texto);padding:9px 14px 9px 10px;border-radius:999px;pointer-events:none;box-shadow:0 10px 24px -10px rgba(31,42,68,.6);transition:opacity .4s,transform .4s var(--ease);white-space:nowrap}
+.cue__track{position:relative;width:16px;height:24px;border:1.5px solid rgba(251,248,242,.7);border-radius:9px}
+.cue__dot{position:absolute;left:50%;top:13px;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:var(--mostarda);animation:cue 1.6s var(--ease) infinite}
+@keyframes cue{0%{transform:translateY(0);opacity:0}20%{opacity:1}70%{transform:translateY(-8px);opacity:1}100%{transform:translateY(-8px);opacity:0}}
+.phone.seen .cue{opacity:0;transform:translate(-50%,8px)}
+.phone img{width:100%}
+.ba figcaption{font-size:13.5px;color:#4C5873;margin-top:14px}
+
+/* texto do case */
+.case-grid{display:grid;grid-template-columns:5fr 7fr;gap:40px 64px;align-items:start}
+.case-grid > :first-child{position:sticky;top:40px}
+.prose{display:grid;gap:22px;max-width:62ch}
+.prose h3{margin-top:18px}
+.prose strong{font-weight:600}
+.callout{border-left:3px solid var(--mostarda);padding:4px 0 4px 22px;font:400 clamp(20px,2vw,24px)/1.4 var(--display);letter-spacing:-.01em}
+.dark .prose{color:#DCE4F1}
+
+/* números da etapa inicial */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:72px;border-top:2px solid var(--tinta)}
+.kpis div{padding-top:18px}
+.kpis dt{font-size:14.5px;color:#4C5873;max-width:24ch}
+.kpis dd{font:500 clamp(44px,5.6vw,76px)/1 var(--display);letter-spacing:-.03em;margin-top:10px;font-variant-numeric:tabular-nums}
+.kpis .alert dd{color:var(--terracota-t)}
+
+/* funil */
+.chart{margin-top:96px}
+.chart-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.chart-head p{font-size:14.5px;color:#4C5873;max-width:52ch}
+.key{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:#4C5873}
+.key span{display:inline-flex;align-items:center;gap:8px}
+.key i{width:14px;height:14px;display:inline-block;border-radius:2px}
+.funnel{list-style:none;border-top:2px solid var(--tinta)}
+.funnel li{display:grid;grid-template-columns:230px 1fr 150px 90px;gap:20px;align-items:center;padding:12px 0;border-bottom:1px solid var(--linha);position:relative;outline:none}
+.funnel .st b{display:block;font:500 18px/1.2 var(--display)}
+.funnel .st code{font:400 11px/1.4 var(--texto);letter-spacing:.04em;color:#4C5873}
+.funnel .track{height:28px;position:relative;display:flex}
+.funnel .bar{height:100%;background:var(--azul);border-radius:0 4px 4px 0;transition:opacity .2s}
+.funnel .lost{height:100%;margin-left:2px;background:rgba(31,42,68,.09);border-radius:0 4px 4px 0}
+.funnel .lost.hot{background:repeating-linear-gradient(135deg,var(--terracota) 0 6px,#E59A78 6px 10px)}
+.funnel .v{font:500 16px var(--texto);font-variant-numeric:tabular-nums;text-align:right}
+.funnel .v small{display:block;font-weight:400;font-size:13px;color:#4C5873}
+.funnel .d{font-size:14px;font-variant-numeric:tabular-nums;color:#4C5873;text-align:right}
+.funnel .d.hot{color:var(--terracota-t);font-weight:600}
+.funnel li:hover .bar,.funnel li:focus-visible .bar{opacity:.82}
+.funnel li:focus-visible{box-shadow:inset 3px 0 0 var(--azul)}
+.tip{position:fixed;z-index:20;pointer-events:none;background:var(--tinta);color:var(--papel);font-size:13px;line-height:1.5;padding:10px 12px;max-width:260px;opacity:0;transition:opacity .15s;box-shadow:0 12px 24px -12px rgba(0,0,0,.4)}
+.tip b{font-weight:600}
+.tip.on{opacity:1}
+.chart-note{font-size:13.5px;color:#4C5873;margin-top:14px}
+
+/* quadro de análise (FigJam redesenhado) */
+.board{margin-top:96px}
+.board-title{display:inline-block;background:var(--tinta);color:var(--papel);font:500 clamp(18px,1.8vw,22px)/1 var(--display);padding:12px 16px;letter-spacing:-.01em}
+.board-grid{display:grid;grid-template-columns:minmax(0,4fr) 2px minmax(0,8fr);gap:40px;margin-top:32px;align-items:start}
+.board-sep{align-self:stretch;background:repeating-linear-gradient(var(--linha) 0 14px,transparent 14px 24px);width:2px}
+.drop{white-space:nowrap;font:500 clamp(36px,4vw,54px)/1 var(--display);color:var(--terracota-t);letter-spacing:-.02em;margin-bottom:28px}
+.step{background:var(--papel);border:1px solid var(--linha);padding:22px 22px 20px;font-size:14.5px}
+.step b{display:block;font:500 17px/1.3 var(--display)}
+.step b code{font:500 12px var(--texto);letter-spacing:.06em;color:#4C5873;display:block;margin-top:2px}
+.step p{margin-top:10px}
+.step ul{margin:8px 0 0 18px}
+.step .big-n{font:500 22px/1.2 var(--display);font-variant-numeric:tabular-nums;margin-top:12px}
+.step-arrow{width:2px;height:44px;background:#8A93A6;margin:6px auto 12px;position:relative}
+.step-arrow::after{content:"";position:absolute;left:-6px;bottom:-8px;border:7px solid transparent;border-top:9px solid #8A93A6;border-bottom:0}
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.note--c{grid-column:2;grid-row:1 / span 2}
+.note{padding:22px 22px 24px;font-size:14.5px;line-height:1.55}
+.note h4{font:500 19px/1.2 var(--display);margin-bottom:10px}
+.note ul{margin-left:18px;display:grid;gap:4px}
+.note ul ul{margin-top:4px}
+.note--a{background:#F2D3C2}
+.note--b{background:var(--nevoa)}
+.note--c{background:#F2DDA6}
+
+/* investigação */
+.fronts{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 24px;margin-top:64px}
+.fronts>div{border-top:2px solid currentColor;padding-top:16px;position:relative}
+.fronts svg{width:44px;height:44px;margin-bottom:18px;transition:transform .5s var(--ease)}
+.n{font:500 12px var(--texto);letter-spacing:.12em;text-transform:uppercase;color:#4C5873}
+.dark .n{color:var(--mostarda)}
+.fronts h3{margin:6px 0 8px}
+.fronts p{font-size:15.5px;color:#4C5873}
+.dark .fronts p{color:#B9C1D3}
+.refs{list-style:none;margin-top:72px;border-top:1px solid rgba(251,248,242,.3)}
+.refs li{display:grid;grid-template-columns:300px 1fr;gap:24px;padding:28px 0;border-bottom:1px solid rgba(251,248,242,.18)}
+.refs b{font:500 clamp(22px,2.4vw,30px)/1.1 var(--display);letter-spacing:-.01em;display:block}
+.refs span{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mostarda);display:block;margin-top:8px}
+.refs p{font-size:15.5px;color:#B9C1D3;max-width:60ch}
+.diag{display:grid;grid-template-columns:5fr 7fr;gap:40px 64px;margin-top:96px;padding-top:40px;border-top:1px solid rgba(251,248,242,.2);align-items:start}
+.min{font:500 clamp(80px,11vw,150px)/.85 var(--display);letter-spacing:-.04em;color:var(--mostarda)}
+.min small{display:block;font:400 15px/1.55 var(--texto);letter-spacing:0;color:#B9C1D3;margin-top:16px;max-width:30ch}
+.hyp{margin-top:72px;font:400 clamp(26px,3.4vw,42px)/1.2 var(--display);letter-spacing:-.02em;max-width:30ch}
+.hyp em{font-style:normal;color:var(--mostarda)}
+.reading{margin-top:72px;font-size:14px;color:#B9C1D3}
+.reading h3{font:500 12px var(--texto);letter-spacing:.12em;text-transform:uppercase;color:var(--papel);margin-bottom:12px}
+.reading ul{list-style:none;display:grid;gap:8px}
+.reading a{color:var(--papel);display:inline-flex;align-items:center;gap:10px;padding:4px 0;text-decoration:underline 1px transparent;text-underline-offset:5px;transition:color .25s,text-decoration-color .25s}
+.reading a::after{content:"";width:10px;height:10px;flex:none;background:currentColor;clip-path:polygon(0 0,100% 0,100% 100%,80% 100%,80% 34%,14% 100%,0 86%,66% 20%,0 20%);transition:transform .3s var(--ease)}
+.reading a:hover,.reading a:focus-visible{color:var(--mostarda);text-decoration-color:currentColor}
+.reading a:hover::after,.reading a:focus-visible::after{transform:translate(3px,-3px)}
+
+/* dados das seções */
+.data{margin-top:88px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:2px solid var(--tinta)}
+.tabs button{font:500 15px var(--texto);background:none;border:0;color:#4C5873;padding:14px 18px;cursor:pointer;position:relative;border-radius:0}
+.tabs button[aria-selected="true"]{color:var(--papel);background:var(--tinta)}
+.tabs button:hover:not([aria-selected="true"]){color:var(--tinta);background:rgba(31,42,68,.06)}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:15px;min-width:720px}
+caption{caption-side:bottom;text-align:left;font-size:13.5px;color:#4C5873;padding-top:14px}
+th,td{padding:13px 14px;text-align:right;border-bottom:1px solid var(--linha);font-variant-numeric:tabular-nums;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;padding-left:0}
+thead th{font:500 12px var(--texto);letter-spacing:.08em;text-transform:uppercase;color:#4C5873;padding-top:18px}
+thead th.mo{color:var(--tinta)}
+tbody th{font-weight:500}
+td.chg{font-size:14px}
+.up::before,.dn::before{display:inline-block;width:0;height:0;margin-right:7px;border:5px solid transparent;vertical-align:1px;content:""}
+.up::before{border-bottom:7px solid var(--azul);border-top:0}
+.dn::before{border-top:7px solid var(--terracota);border-bottom:0}
+tr.low th,tr.low td{color:#8A93A6}
+tbody tr:hover th,tbody tr:hover td{background:rgba(67,101,154,.06)}
+.panel[hidden]{display:none}
+
+/* execução */
+
+/* impacto */
+.big{display:grid;grid-template-columns:auto 1fr;gap:24px 48px;align-items:end;margin-top:56px}
+.big svg{display:block;height:calc(clamp(120px,20vw,260px)*.727);width:auto;fill:currentColor;overflow:visible}
+.big p{font:400 clamp(20px,2.2vw,28px)/1.3 var(--display);max-width:22ch;padding-bottom:12px}
+.big small{display:block;font:400 15px/1.55 var(--texto);color:#DCE4F1;margin-top:14px;max-width:44ch}
+.cmp{margin-top:88px;max-width:760px}
+.cmp h3{margin-bottom:24px}
+.cmp-row{display:grid;grid-template-columns:90px 1fr 64px;gap:16px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(251,248,242,.25)}
+.cmp-row:first-of-type{border-top:1px solid rgba(251,248,242,.5)}
+.cmp-row span{font-size:14px;color:#DCE4F1}
+.cmp-row b{font:500 24px var(--display);text-align:right;font-variant-numeric:tabular-nums}
+.cmp-bar{height:24px;border-radius:0 4px 4px 0}
+.cmp-bar.a{background:rgba(251,248,242,.4)}
+.cmp-bar.b{background:var(--mostarda)}
+
+/* fecho */
+.closing blockquote{font:400 clamp(28px,3.8vw,48px)/1.16 var(--display);letter-spacing:-.02em;max-width:26ch}
+.closing blockquote em{font-style:normal;color:var(--azul)}
+.next{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center;margin-top:88px;padding-top:28px;border-top:2px solid var(--tinta)}
+
+.pattern{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));grid-auto-rows:0;grid-template-rows:auto;overflow:hidden}
+.pattern svg{width:100%;height:auto;transition:transform .6s cubic-bezier(.7,0,.2,1)}
+.fim{padding:120px 0;text-align:center}
+.fim .lead{margin:26px auto 36px;color:#B9C1D3;max-width:520px;font-size:clamp(18px,1.6vw,21px)}
+.foot{background:var(--tinta);color:#8D97AE;font-size:13px;padding:0 0 max(32px,env(safe-area-inset-bottom))}
+.foot .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid rgba(251,248,242,.15);padding-top:24px}
+
+/* animações de entrada e hover */
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+@media (hover:hover){
+  .back:hover svg{transform:translateX(-4px)}
+  .fronts>div:hover svg{transform:rotate(90deg)}
+  .fronts>div:hover h3{color:var(--mostarda)}
+  .pattern svg:hover{transform:rotate(90deg)}
+}
+
+.skip{position:absolute;left:16px;top:-80px;z-index:10;background:var(--tinta);color:var(--papel);padding:12px 16px;font-size:14px;text-decoration:none}
+.skip:focus{top:16px}
+a,button{touch-action:manipulation;-webkit-tap-highlight-color:rgba(67,101,154,.2)}
+.hint{display:none;font-size:12.5px;color:#4C5873;margin-bottom:10px}
+
+@media (max-width:960px){
+  .case-grid,.diag{grid-template-columns:1fr}
+  .case-grid > :first-child{position:static}
+  .board-grid{grid-template-columns:1fr}
+  .board-sep{display:none}
+  .notes{grid-template-columns:1fr}
+  .note--c{grid-column:auto;grid-row:auto}
+  .refs li{grid-template-columns:1fr;gap:10px}
+  .funnel li{grid-template-columns:1fr 110px;row-gap:8px}
+  .funnel .track{grid-column:1/-1;grid-row:2}
+  .funnel .v{grid-column:2;grid-row:1}
+  .funnel .d{display:none}
+}
+@media (max-width:860px){
+  section{padding:84px 0}
+  body{font-size:16px}
+  .wrap{padding:0 max(18px,env(safe-area-inset-right)) 0 max(18px,env(safe-area-inset-left))}
+  .top .wrap{gap:16px}
+  .top .btn{display:none}
+  .c-hero{padding-top:64px}
+  .facts{grid-template-columns:1fr 1fr;row-gap:28px}
+  .kpis{grid-template-columns:1fr}
+  .fronts{grid-template-columns:1fr}
+  .big{grid-template-columns:1fr}
+  .ba{gap:14px}
+  .phone{border-radius:20px;padding:6px}
+  .phone .screen{border-radius:15px}
+  .hint{display:block}
+  .cmp-row{grid-template-columns:70px 1fr 54px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important}
+  .js .rv{opacity:1;transform:none}
+  .cue__dot{animation:none;top:6px}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+
+<!-- símbolos da marca (iguais aos da index.html) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="sym" viewBox="40 0 80 120">
+      <path d="M72 72V40L40 72Z" style="fill:var(--c-tri)"/>
+      <circle cx="100" cy="20" r="16" style="fill:var(--c-dot)"/>
+      <path d="M80 40H120V80A40 40 0 0 1 40 80H80Z" style="fill:var(--c-body)"/>
+    </symbol>
+    <symbol id="wm" viewBox="0 -2 195 90">
+      <g fill="none" stroke-width="10" style="stroke:var(--c-wm)">
+        <path d="M25 20V65A15 15 0 0 1 10 80H4"/><circle cx="60" cy="40" r="15.6"/>
+        <path d="M100 6V60M128 6V60M90 25H140"/><circle cx="170" cy="40" r="15.6"/><path d="M185 20V60"/>
+      </g>
+      <circle cx="25" cy="7" r="6.5" style="fill:var(--c-dot)"/>
+    </symbol>
+    <symbol id="lockH" viewBox="0 0 178 70">
+      <use href="#sym" x="0" y="5" width="40" height="60"/>
+      <use href="#wm" x="60" y="7.8" width="117" height="54"/>
+    </symbol>
+  </defs>
+</svg>
+
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<header class="top">
+  <div class="wrap">
+    <a href="index.html" aria-label="jotta, início"><svg viewBox="0 0 178 70" width="96" aria-hidden="true"><use href="#lockH"/></svg></a>
+    <a class="back" href="index.html#cases"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M13 7H2M6 2.5 1.5 7 6 11.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Voltar para os cases</a>
+    <a class="btn" href="index.html#contato">Entrar em contato</a>
+  </div>
+</header>
+
+<main id="conteudo">
+<!-- TOPO DO CASE -->
+<section class="c-hero">
+  <div class="wrap">
+    <p class="num">Case 02 · <span translate="no">Quero Delivery</span></p>
+    <h1>Otimização da Home</h1>
+    <p class="sub">Reduzindo a carga cognitiva e melhorando a descoberta de produtos</p>
+    <p class="lead muted">Como utilizei dados comportamentais e princípios da psicologia cognitiva para identificar fricções na jornada, simplificar a experiência da Home e reduzir a taxa de abandono em 50%.</p>
+    <dl class="facts">
+      <div><dt>Empresa</dt><dd translate="no">Quero Delivery</dd></div>
+      <div><dt>Papel</dt><dd>Product Design</dd></div>
+      <div><dt>Ano</dt><dd>2025</dd></div>
+      <div><dt>Resultado</dt><dd><b>−50%</b> de abandono na Home</dd></div>
+    </dl>
+    <div class="ba rv">
+      <figure>
+        <p class="lbl"><b>Antes</b>Home original</p>
+        <div class="phone"><div class="screen" tabindex="0" role="region" aria-label="Home original, role para ver a tela inteira"><img src="assets/img/cases/otimizacao-home/home-antes.webp" width="343" height="2000" alt="Home original do app: banner de ofertas, busca, linha de categorias, missões do mês, oferta relâmpago, quero repeteco, banners de promoção, quero desconto e uma grade longa de estabelecimentos." fetchpriority="high"></div><span class="cue" aria-hidden="true"><span class="cue__track"><span class="cue__dot"></span></span>Role a tela</span></div>
+      </figure>
+      <figure>
+        <p class="lbl"><b>Depois</b>Home otimizada</p>
+        <div class="phone"><div class="screen" tabindex="0" role="region" aria-label="Home otimizada, role para ver a tela inteira"><img src="assets/img/cases/otimizacao-home/home-depois.png" width="360" height="1467" alt="Home otimizada: saudação com saldo de cashback, banner de ofertas, busca, categorias em destaque, quero desconto, banners de promoção, benefícios (cashback, cupons, indique) e estabelecimentos, com mais respiro entre as seções." fetchpriority="high"></div><span class="cue" aria-hidden="true"><span class="cue__track"><span class="cue__dot"></span></span>Role a tela</span></div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 01 DESAFIO -->
+<section id="desafio">
+  <div class="wrap">
+    <div class="case-grid">
+      <div>
+        <p class="num">01 · O desafio</p>
+        <h2 class="rv">Entender por que os usuários não avançavam na jornada</h2>
+      </div>
+      <div class="prose rv">
+        <p>A partir de uma análise da jornada do usuário, identifiquei pontos de fricção que comprometiam a continuidade do fluxo de compra.</p>
+        <p>Para entender onde essas interrupções aconteciam, mapeamos as etapas da jornada e analisamos os eventos registrados no aplicativo. O objetivo era identificar em quais momentos os usuários abandonavam o fluxo e quais etapas apresentavam maior dificuldade de progressão.</p>
+        <p class="callout">A maior queda acontecia logo no início da jornada, na Home do aplicativo: justamente o primeiro contato do usuário com as opções disponíveis para iniciar um pedido.</p>
+      </div>
+    </div>
+
+    <dl class="kpis rv">
+      <div><dt>Usuários que realizaram check-in no app</dt><dd>386.730</dd></div>
+      <div><dt>Usuários que acessaram lojas ou produtos</dt><dd>316.496</dd></div>
+      <div class="alert"><dt>Abandono na etapa inicial, cerca de 70 mil usuários</dt><dd>18,2%</dd></div>
+    </dl>
+
+    <!-- funil redesenhado a partir da análise de eventos -->
+    <div class="chart rv" id="funil">
+      <div class="chart-head">
+        <div>
+          <h3>Funil de jornada do usuário</h3>
+          <p>Usuários em cada etapa, da entrada no app até a compra. Primeira quinzena de dezembro de 2025.</p>
+        </div>
+        <div class="key" aria-hidden="true"><span><i style="background:var(--azul)"></i>Usuários na etapa</span><span><i style="background:repeating-linear-gradient(135deg,var(--terracota) 0 4px,#E59A78 4px 7px)"></i>Maior queda</span><span><i style="background:rgba(31,42,68,.12)"></i>Saíram na etapa</span></div>
+      </div>
+      <ol class="funnel" aria-label="Funil de jornada do usuário"></ol>
+      <p class="chart-note">A coluna da direita mostra quanto cada etapa perde em relação à anterior.</p>
+    </div>
+
+    <!-- quadro de análise do FigJam, redesenhado -->
+    <div class="board rv">
+      <h3 class="board-title">Entrada no app → Visualização de loja</h3>
+      <div class="board-grid">
+        <div>
+          <p class="drop">Queda: ~18%</p>
+          <div class="step">
+            <b>1. Entraram no app<code translate="no">USUARIO_CHECK_IN</code></b>
+            <p class="big-n">386.730 usuários (100%)</p>
+            <p>Total de usuários que iniciaram a jornada. Esse é o ponto de partida do funil.</p>
+          </div>
+          <div class="step-arrow" aria-hidden="true"></div>
+          <div class="step">
+            <b>2. Visualizaram uma loja<code translate="no">PLACE_PROFILE_VIEW</code></b>
+            <p class="big-n">316.496 usuários (81,84%)</p>
+            <p>Aqui já existe uma queda de ~18%. Possíveis causas:</p>
+            <ul><li>Usuários entram no app, mas não encontram algo atrativo de imediato.</li><li>Falta de destaque para lojas ou ofertas na Home.</li></ul>
+          </div>
+        </div>
+        <div class="board-sep" aria-hidden="true"></div>
+        <div class="notes">
+          <div class="note note--a">
+            <h4>O que isso indica?</h4>
+            <p>Usuários entram no app, mas não se sentem motivados a clicar em uma loja.</p>
+          </div>
+          <div class="note note--b">
+            <h4>Hipóteses</h4>
+            <ul><li>Home pouco escaneável e interessante</li><li>Falta de destaque para benefícios claros (promoções, cashback, frete, cupons)</li><li>Excesso de opções sem hierarquia</li></ul>
+          </div>
+          <div class="note note--c">
+            <h4>Ações de UX/UI</h4>
+            <ul>
+              <li>Estudar o formato de exibição da Home<ul><li>Priorizar lojas, produtos, benefícios ou banners?</li></ul></li>
+              <li>Destaque visual imediato para cashback, promoções ativas e lojas populares</li>
+              <li>Melhorar a hierarquia: primeira dobra mais objetiva, menos esforço cognitivo</li>
+              <li>Testar microcopies e atalhos mais orientados à ação, como “Ganhe cashback agora”</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose rv" style="margin-top:72px">
+      <p>Esse comportamento levantou uma questão importante: os usuários estavam entrando no aplicativo, mas não encontravam estímulos suficientes para avançar na descoberta de produtos e lojas.</p>
+      <p>O problema, portanto, não parecia estar apenas na oferta, mas também <strong>na maneira como as informações eram apresentadas e organizadas na Home</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 INVESTIGAÇÃO -->
+<section class="dark" id="investigacao">
+  <div class="wrap">
+    <div class="case-grid">
+      <div>
+        <p class="num on-dark">02 · Investigação</p>
+        <h2 class="rv">Entendendo a carga cognitiva da Home</h2>
+      </div>
+      <div class="prose rv">
+        <p>A partir dos dados, formulei três hipóteses principais. Para aprofundar a investigação, analisei a interface sob a perspectiva da psicologia cognitiva, buscando entender como a organização das informações poderia influenciar a percepção, a atenção e a tomada de decisão dos usuários.</p>
+      </div>
+    </div>
+    <div class="fronts">
+      <div class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" fill="#C9D6EA"/></svg><span class="n">Hipótese 01</span><h3>Baixa escaneabilidade</h3><p>A Home não facilitava a identificação rápida de informações relevantes.</p></div>
+      <div class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20" fill="#D4764E"/></svg><span class="n">Hipótese 02</span><h3>Pouca evidência de valor</h3><p>Promoções, cashback, frete e cupons não tinham o destaque necessário.</p></div>
+      <div class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M44 44V4L4 44Z" fill="#E2B44A"/></svg><span class="n">Hipótese 03</span><h3>Excesso de informações</h3><p>A quantidade de elementos e a falta de hierarquia dificultavam a compreensão e a navegação.</p></div>
+    </div>
+
+    <ul class="refs">
+      <li class="rv"><div><b>Daniel Kahneman</b><span>Sistemas de pensamento</span></div><p>A teoria dos dois sistemas de pensamento ajudou a compreender como a interface poderia facilitar decisões mais rápidas e intuitivas, reduzindo o esforço necessário para interpretar as opções disponíveis.</p></li>
+      <li class="rv"><div><b>Nelson Cowan</b><span>Memória de trabalho</span></div><p>Os estudos sobre memória de trabalho contribuíram para analisar como o excesso de informações simultâneas poderia sobrecarregar a capacidade do usuário de manter e processar diferentes elementos durante a navegação.</p></li>
+      <li class="rv"><div><b>George A. Miller</b><span>Processamento de informações</span></div><p>Os estudos sobre os limites da capacidade de processamento de informações trouxeram referências para avaliar a quantidade de elementos apresentados e a necessidade de organizar melhor os estímulos visuais.</p></li>
+    </ul>
+
+    <div class="diag">
+      <div class="rv"><p class="num on-dark">O diagnóstico</p><p class="min">20&nbsp;min<small>em média entre o check-in e a realização do pedido.</small></p></div>
+      <div class="prose rv">
+        <p>A análise apontou que a Home concentrava muitas informações e estímulos em um mesmo ambiente, sem uma hierarquia suficientemente clara.</p>
+        <p>Isso aumentava o esforço necessário para identificar oportunidades, comparar opções e decidir onde iniciar um pedido. O tempo médio até o pedido reforçava a necessidade de investigar essa experiência.</p>
+      </div>
+    </div>
+    <p class="hyp rv">Hipótese central: poderíamos facilitar a descoberta e a tomada de decisão <em>reorganizando a hierarquia de informações</em> e reduzindo a carga cognitiva da Home.</p>
+
+    <div class="reading rv">
+      <h3>Leituras de referência</h3>
+      <ul>
+        <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2864034/" target="_blank" rel="noopener">Cowan, The Magical Mystery Four: How is Working Memory Capacity Limited, and Why?</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two" target="_blank" rel="noopener">Miller, The Magical Number Seven, Plus or Minus Two</a></li>
+        <li><a href="https://www.sciencedirect.com/topics/computer-science/working-memory-capacity" target="_blank" rel="noopener">Working Memory Capacity, ScienceDirect</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 03 ESTRATÉGIA -->
+<section class="paper" id="estrategia">
+  <div class="wrap">
+    <div class="case-grid">
+      <div>
+        <p class="num">03 · Estratégia</p>
+        <h2 class="rv">Transformar dados em decisões de design</h2>
+      </div>
+      <div class="prose rv">
+        <p>Com o diagnóstico estabelecido, avancei para uma análise mais aprofundada do comportamento dos usuários dentro da própria Home.</p>
+        <p>Coletei dados de cliques e conversões das seções disponíveis para entender quais áreas realmente contribuíam para a jornada e quais apresentavam baixa performance. Esse cruzamento permitiu identificar oportunidades com base no comportamento real, evitando decisões fundamentadas apenas em preferências visuais.</p>
+        <p>Em paralelo, alinhei os resultados e as oportunidades com os times de Produto e Negócio, garantindo que as mudanças também considerassem os objetivos estratégicos do aplicativo.</p>
+      </div>
+    </div>
+
+    <!-- dados por seção da Home, redesenhados da planilha -->
+    <div class="data rv">
+      <h3 style="margin-bottom:20px">Desempenho das seções da Home</h3>
+      <div class="tabs" role="tablist" aria-label="Indicador">
+        <button role="tab" id="t-ped" aria-controls="p-ped" aria-selected="true">Pedidos</button>
+        <button role="tab" id="t-cli" aria-controls="p-cli" aria-selected="false" tabindex="-1">Cliques na seção</button>
+        <button role="tab" id="t-con" aria-controls="p-con" aria-selected="false" tabindex="-1">Conversão</button>
+      </div>
+      <div class="panel" role="tabpanel" id="p-ped" aria-labelledby="t-ped"><div class="tbl-wrap" tabindex="0" role="region" aria-label="Tabela de pedidos por seção, role para o lado"><table>
+        <caption>Pedidos originados em cada seção e a participação no total do mês. Em cinza, seções com menos de 1% dos pedidos.</caption>
+        <thead><tr><th scope="col">Seção</th><th scope="col" class="mo">Ago 2025</th><th scope="col">%</th><th scope="col" class="mo">Out 2025</th><th scope="col">%</th><th scope="col" class="mo">Nov 2025</th><th scope="col">%</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Categoria</th><td>245.157</td><td>31,0%</td><td>259.980</td><td>31,0%</td><td>281.969</td><td>31,2%</td></tr>
+          <tr><th scope="row">Pesquisa</th><td>221.807</td><td>28,0%</td><td>226.814</td><td>27,1%</td><td>246.796</td><td>27,3%</td></tr>
+          <tr><th scope="row">Listagem de lojas</th><td>223.392</td><td>28,2%</td><td>258.218</td><td>30,8%</td><td>283.107</td><td>31,3%</td></tr>
+          <tr><th scope="row"><span translate="no">Quero Repeteco</span></th><td>68.847</td><td>8,7%</td><td>64.551</td><td>7,7%</td><td>55.828</td><td>6,2%</td></tr>
+          <tr><th scope="row">Banner</th><td>12.325</td><td>1,6%</td><td>15.086</td><td>1,8%</td><td>19.734</td><td>2,2%</td></tr>
+          <tr><th scope="row"><span translate="no">Quero Desconto</span></th><td>9.307</td><td>1,2%</td><td>11.785</td><td>1,4%</td><td>13.754</td><td>1,5%</td></tr>
+          <tr class="low"><th scope="row">Produtos recomendados por IA</th><td>4.638</td><td>0,6%</td><td>31</td><td>0,0%</td><td>33</td><td>0,0%</td></tr>
+          <tr class="low"><th scope="row">Frete grátis</th><td>3.882</td><td>0,5%</td><td>—</td><td>0,0%</td><td>—</td><td>0,0%</td></tr>
+          <tr class="low"><th scope="row">Cartão fidelidade</th><td>1.320</td><td>0,2%</td><td>1.666</td><td>0,2%</td><td>1.724</td><td>0,2%</td></tr>
+          <tr class="low"><th scope="row">Cashback</th><td>1.352</td><td>0,2%</td><td>305</td><td>0,0%</td><td>303</td><td>0,0%</td></tr>
+        </tbody>
+      </table></div></div>
+      <div class="panel" role="tabpanel" id="p-cli" aria-labelledby="t-cli" hidden><div class="tbl-wrap" tabindex="0" role="region" aria-label="Tabela de cliques por seção, role para o lado"><table>
+        <caption>Cliques em cada seção e a variação entre os períodos (triângulo para cima: alta; para baixo: queda).</caption>
+        <thead><tr><th scope="col">Seção</th><th scope="col" class="mo">Ago 2025</th><th scope="col">Variação</th><th scope="col" class="mo">Out 2025</th><th scope="col">Variação</th><th scope="col" class="mo">Nov 2025</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Categoria</th><td>1.720.092</td><td class="chg dn">−12,8%</td><td>1.499.788</td><td class="chg up">+3,4%</td><td>1.551.090</td></tr>
+          <tr><th scope="row">Pesquisa</th><td>3.896.056</td><td class="chg dn">−9,5%</td><td>3.524.582</td><td class="chg up">+5,2%</td><td>3.707.646</td></tr>
+          <tr><th scope="row">Listagem de lojas</th><td>2.170.047</td><td class="chg up">+10,8%</td><td>2.404.093</td><td class="chg up">+4,6%</td><td>2.514.503</td></tr>
+          <tr><th scope="row"><span translate="no">Quero Repeteco</span></th><td>105.308</td><td class="chg dn">−8,0%</td><td>96.931</td><td class="chg dn">−11,7%</td><td>85.585</td></tr>
+          <tr><th scope="row">Banner</th><td>436.588</td><td class="chg dn">−2,0%</td><td>427.858</td><td class="chg up">+31,7%</td><td>563.276</td></tr>
+          <tr><th scope="row"><span translate="no">Quero Desconto</span></th><td>184.400</td><td class="chg up">+27,3%</td><td>234.693</td><td class="chg up">+7,9%</td><td>253.225</td></tr>
+        </tbody>
+      </table></div></div>
+      <div class="panel" role="tabpanel" id="p-con" aria-labelledby="t-con" hidden><div class="tbl-wrap" tabindex="0" role="region" aria-label="Tabela de conversão por seção, role para o lado"><table>
+        <caption>Taxa de conversão de cada seção e a variação entre os períodos (triângulo para cima: alta; para baixo: queda).</caption>
+        <thead><tr><th scope="col">Seção</th><th scope="col" class="mo">Ago 2025</th><th scope="col">Variação</th><th scope="col" class="mo">Out 2025</th><th scope="col">Variação</th><th scope="col" class="mo">Nov 2025</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Categoria</th><td>14,3%</td><td class="chg up">+12,2%</td><td>17,3%</td><td class="chg up">+4,9%</td><td>18,2%</td></tr>
+          <tr><th scope="row">Pesquisa</th><td>5,7%</td><td class="chg up">+5,3%</td><td>6,4%</td><td class="chg up">+3,4%</td><td>6,7%</td></tr>
+          <tr><th scope="row">Listagem de lojas</th><td>10,3%</td><td class="chg dn">−4,3%</td><td>10,7%</td><td class="chg up">+4,8%</td><td>11,3%</td></tr>
+          <tr><th scope="row"><span translate="no">Quero Repeteco</span></th><td>65,4%</td><td class="chg dn">−0,6%</td><td>66,6%</td><td class="chg dn">−2,0%</td><td>65,2%</td></tr>
+          <tr><th scope="row">Banner</th><td>2,8%</td><td class="chg up">+13,4%</td><td>3,5%</td><td class="chg dn">−0,6%</td><td>3,5%</td></tr>
+          <tr><th scope="row"><span translate="no">Quero Desconto</span></th><td>5,0%</td><td class="chg dn">−9,3%</td><td>5,0%</td><td class="chg up">+8,2%</td><td>5,4%</td></tr>
+        </tbody>
+      </table></div></div>
+    </div>
+
+    <p class="rv" style="margin-top:96px;font-size:15px;color:#4C5873">A partir dessas análises, defini três frentes de atuação:</p>
+    <div class="fronts" style="margin-top:24px">
+      <div class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" fill="#43659A"/></svg><span class="n">01</span><h3>Reorganização da comunicação</h3><p>Algumas seções passaram por ajustes de layout para melhorar a hierarquia visual, facilitar a leitura e tornar as informações mais escaneáveis.</p></div>
+      <div class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20" fill="#D4764E"/></svg><span class="n">02</span><h3>Priorização de conteúdo</h3><p>As seções com menor performance foram removidas, reduzindo a quantidade de informações concorrendo pela atenção do usuário.</p></div>
+      <div class="rv"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M44 44V4L4 44Z" fill="#E2B44A"/></svg><span class="n">03</span><h3>Redução da densidade visual</h3><p>Aumentei os espaçamentos entre as seções, com mais áreas de respiro (white space) para diminuir a sensação de excesso e facilitar a identificação de cada conteúdo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 EXECUÇÃO -->
+<section id="execucao">
+  <div class="wrap">
+    <div class="case-grid">
+      <div>
+        <p class="num">04 · Execução</p>
+        <h2 class="rv">Evolução gradual da experiência</h2>
+      </div>
+      <div class="prose rv">
+        <p>Em vez de reformular toda a Home de uma única vez, optei por implementar as mudanças de forma progressiva.</p>
+        <p>Essa decisão tinha dois objetivos: reduzir o impacto de uma transformação brusca na experiência dos usuários e acompanhar o comportamento da jornada a cada intervenção. Assim, observamos os resultados gradualmente e entendemos como cada ajuste contribuía para a evolução da experiência.</p>
+        <p>A solução final trouxe uma Home visualmente mais limpa, com melhor distribuição das informações e uma hierarquia mais clara. As seções de melhor performance passaram a receber maior destaque e foram distribuídas de maneira mais estratégica, evitando que diferentes conteúdos competissem pela atenção do usuário.</p>
+        <p class="callout">O foco deixou de ser simplesmente exibir mais opções e passou a ser facilitar a descoberta das opções mais relevantes.</p>
+      </div>
+    </div>
+    <div class="ba rv">
+      <figure>
+        <p class="lbl"><b>Antes</b>Home original</p>
+        <div class="phone"><div class="screen" tabindex="0" role="region" aria-label="Home original, role para ver a tela inteira"><img loading="lazy" src="assets/img/cases/otimizacao-home/home-antes.webp" width="343" height="2000" alt="Home original do app: banner de ofertas, busca, linha de categorias, missões do mês, oferta relâmpago, quero repeteco, banners de promoção, quero desconto e uma grade longa de estabelecimentos."></div><span class="cue" aria-hidden="true"><span class="cue__track"><span class="cue__dot"></span></span>Role a tela</span></div>
+      </figure>
+      <figure>
+        <p class="lbl"><b>Depois</b>Home otimizada</p>
+        <div class="phone"><div class="screen" tabindex="0" role="region" aria-label="Home otimizada, role para ver a tela inteira"><img loading="lazy" src="assets/img/cases/otimizacao-home/home-depois.png" width="360" height="1467" alt="Home otimizada: saudação com saldo de cashback, banner de ofertas, busca, categorias em destaque, quero desconto, banners de promoção, benefícios (cashback, cupons, indique) e estabelecimentos, com mais respiro entre as seções."></div><span class="cue" aria-hidden="true"><span class="cue__track"><span class="cue__dot"></span></span>Role a tela</span></div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 05 IMPACTO -->
+<section class="blue" id="impacto">
+  <div class="wrap">
+    <p class="num on-dark">05 · Impacto</p>
+    <h2 class="rv">Reduzindo o abandono pela metade</h2>
+    <div class="big rv">
+      <svg viewBox="35 -714 1896 727" role="img" aria-label="50%"><path d="M557-228L557-228Q557-299 528.5-351Q500-403 452-432Q404-461 346-461L346-461Q317-461 289-455Q261-449 235-436L235-436L279-596L550-596L550-700L190-700L95-315Q131-337 161.5-349Q192-361 221.5-365.5Q251-370 282-370L282-370Q322-370 356-354Q390-338 410-308Q430-278 430-235L430-235Q430-193 412.5-162.5Q395-132 362-115.5Q329-99 282-99L282-99Q249-99 215.5-112.5Q182-126 154-148.5Q126-171 105-199L105-199L35-113Q62-80 98-51.5Q134-23 183.5-6Q233 11 297 11L297 11Q348 11 394-3.5Q440-18 477-47.5Q514-77 535.5-122Q557-167 557-228ZM713-350L713-350Q713-406 724-453Q735-500 755.5-534Q776-568 805-586.5Q834-605 870-605L870-605Q906-605 934.5-586.5Q963-568 983.5-534Q1004-500 1015-453Q1026-406 1026-350L1026-350Q1026-294 1015-247Q1004-200 983.5-166Q963-132 934.5-113.5Q906-95 870-95L870-95Q834-95 805-113.5Q776-132 755.5-166Q735-200 724-247Q713-294 713-350ZM597-350L597-350Q597-241 631.5-160Q666-79 727.5-34Q789 11 870 11L870 11Q952 11 1013-34Q1074-79 1108-160Q1142-241 1142-350L1142-350Q1142-459 1108-540Q1074-621 1013-666Q952-711 870-711L870-711Q789-711 727.5-666Q666-621 631.5-540Q597-459 597-350ZM1172-544L1172-544Q1172-497 1193.5-458.5Q1215-420 1254-397Q1293-374 1342-374L1342-374Q1393-374 1431.5-397Q1470-420 1491.5-458.5Q1513-497 1513-544L1513-544Q1513-591 1491.5-629.5Q1470-668 1431.5-691Q1393-714 1342-714L1342-714Q1293-714 1254-691Q1215-668 1193.5-629.5Q1172-591 1172-544ZM1265-544L1265-544Q1265-567 1274.5-586Q1284-605 1301.5-616Q1319-627 1342-627L1342-627Q1367-627 1384-616Q1401-605 1411-586Q1421-567 1421-544L1421-544Q1421-522 1411-502.5Q1401-483 1384-471.5Q1367-460 1342-460L1342-460Q1319-460 1301.5-471.5Q1284-483 1274.5-502.5Q1265-522 1265-544ZM1590-157L1590-157Q1590-110 1611.5-71Q1633-32 1672-9.5Q1711 13 1760 13L1760 13Q1811 13 1849-9.5Q1887-32 1909-71Q1931-110 1931-157L1931-157Q1931-204 1909-242.5Q1887-281 1849-304Q1811-327 1760-327L1760-327Q1711-327 1672-304Q1633-281 1611.5-242.5Q1590-204 1590-157ZM1682-157L1682-157Q1682-180 1691.5-198.5Q1701-217 1718.5-228.5Q1736-240 1760-240L1760-240Q1785-240 1802-228.5Q1819-217 1828.5-198Q1838-179 1838-157L1838-157Q1838-135 1828.5-115.5Q1819-96 1802-84.5Q1785-73 1760-73L1760-73Q1736-73 1718.5-84.5Q1701-96 1691.5-115.5Q1682-135 1682-157ZM1848-700L1740-700L1255 0L1363 0L1848-700Z"/></svg>
+      <p>de redução relativa no abandono da etapa inicial da jornada.<small>Após a implementação das melhorias, acompanhamos a evolução da taxa de abandono entre o check-in e o acesso a uma loja ou produto.</small></p>
+    </div>
+    <div class="cmp rv" role="group" aria-label="Taxa de abandono antes e depois">
+      <h3>Taxa de abandono</h3>
+      <div class="cmp-row"><span>Antes</span><div class="cmp-bar a" style="width:100%"></div><b>18%</b></div>
+      <div class="cmp-row"><span>Depois</span><div class="cmp-bar b" style="width:50%"></div><b>9%</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- APRENDIZADO -->
+<section class="closing" id="aprendizado">
+  <div class="wrap">
+    <div class="case-grid">
+      <div>
+        <p class="num">O que aprendi</p>
+        <h2 class="rv">Mais que uma mudança visual</h2>
+      </div>
+      <div class="prose rv">
+        <p>A reorganização da Home contribuiu para tornar a experiência mais objetiva, melhorar a distribuição dos conteúdos e facilitar a descoberta de lojas e produtos.</p>
+        <p>O projeto demonstrou como decisões de design fundamentadas em dados comportamentais e princípios cognitivos podem impactar diretamente a eficiência de uma jornada.</p>
+      </div>
+    </div>
+    <blockquote class="rv" style="margin-top:96px">Uma boa experiência não depende de apresentar mais informações, mas de apresentar <em>as informações certas</em>, no momento certo e com a hierarquia adequada.</blockquote>
+    <div class="next">
+      <a class="back" style="margin:0" href="index.html#cases"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M13 7H2M6 2.5 1.5 7 6 11.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Voltar para os cases</a>
+      <a class="btn" href="case-harness-design.html">Ler o case Harness Design</a>
+    </div>
+  </div>
+</section>
+
+<div class="pattern" id="pattern" aria-hidden="true"></div>
+
+<section class="fim dark" id="contato">
+  <div class="wrap">
+    <h2 class="rv">Vamos conversar<br>sobre o seu produto.</h2>
+    <p class="lead rv">Aberto a conversas sobre produto, design e novas oportunidades.</p>
+    <div class="fim__acts">
+      <a class="btn btn--light" href="mailto:joaopedroux@gmail.com">Enviar um e-mail</a>
+      <a class="btn btn--ghost" href="https://www.linkedin.com/in/jottaux/" target="_blank" rel="noopener" translate="no">LinkedIn<span class="sr-only"> (abre em nova aba)</span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot"><div class="wrap"><span translate="no">© 2026 João Pedro · Product Designer</span><span translate="no">jotta</span></div></footer>
+
+<div class="tip" id="tip" role="presentation"></div>
+
+<script>
+(function(){
+  /* funil: dados da análise de eventos (1ª quinzena de dez/2025) */
+  var F=[['Entraram no app','USUARIO_CHECK_IN',386730],['Viram uma loja','PLACE_PROFILE_VIEW',316496],['Viram um produto','VIEW_ITEM',273889],['Adicionaram ao carrinho','CARRINHO_PRODUTO_ADICIONADO',240682],['Abriram o carrinho','VIEW_CART',218564],['Iniciaram o checkout','BEGIN_CHECKOUT',200508],['Informaram o pagamento','ADD_PAYMENT_INFO',197877],['Concluíram a compra','PURCHASE',192339]];
+  var nf=new Intl.NumberFormat('pt-BR'),pf=function(x,d){return x.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d})+'%'};
+  var T=F[0][2],ol=document.querySelector('.funnel'),h='';
+  F.forEach(function(r,i){
+    var pct=r[2]/T*100,prev=i?F[i-1][2]:r[2],lostPct=(prev-r[2])/T*100,drop=i?(1-r[2]/prev)*100:0,hot=i===1;
+    h+='<li tabindex="0" data-i="'+i+'" aria-label="'+r[0]+': '+nf.format(r[2])+' usuários, '+pf(pct,2)+' do total'+(i?', queda de '+pf(drop,1)+' em relação à etapa anterior':'')+'">'
+      +'<span class="st"><b>'+r[0]+'</b><code translate="no">'+r[1]+'</code></span>'
+      +'<span class="track" aria-hidden="true"><span class="bar" style="width:'+pct+'%"></span>'+(i?'<span class="lost'+(hot?' hot':'')+'" style="width:calc('+lostPct+'% - 2px)"></span>':'')+'</span>'
+      +'<span class="v" aria-hidden="true">'+nf.format(r[2])+'<small>'+pf(pct,2)+'</small></span>'
+      +'<span class="d'+(hot?' hot':'')+'" aria-hidden="true">'+(i?'−'+pf(drop,1):'')+'</span></li>';
+  });
+  ol.innerHTML=h;
+  var tip=document.getElementById('tip');
+  var last=-1,tw=0,th=0; /* mede o tooltip só quando muda de etapa */
+  function show(li,x,y){var i=+li.dataset.i,r=F[i],prev=i?F[i-1][2]:0;
+    if(i!==last){last=i;
+    tip.innerHTML='<b>'+r[0]+'</b><br>'+nf.format(r[2])+' usuários · '+pf(r[2]/T*100,2)+' do total'+(i?'<br>'+nf.format(prev-r[2])+' saíram nesta etapa ('+pf((1-r[2]/prev)*100,1)+')':'');
+    tw=tip.offsetWidth;th=tip.offsetHeight}
+    tip.style.left=Math.min(x+16,innerWidth-tw-12)+'px';tip.style.top=Math.max(12,y-th-12)+'px';tip.classList.add('on')}
+  ol.addEventListener('mousemove',function(e){var li=e.target.closest('li');if(li)show(li,e.clientX,e.clientY);else tip.classList.remove('on')});
+  ol.addEventListener('mouseleave',function(){tip.classList.remove('on')});
+  ol.addEventListener('focusin',function(e){var li=e.target.closest('li'),b=li.querySelector('.bar').getBoundingClientRect();show(li,b.right,b.top)});
+  ol.addEventListener('focusout',function(){tip.classList.remove('on')});
+
+  /* abas das tabelas */
+  var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
+  var KEYS={'p-ped':'pedidos','p-cli':'cliques','p-con':'conversao'};
+  function sel(t,push){tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on});
+    if(push){var u=new URL(location.href);u.searchParams.set('dados',KEYS[t.getAttribute('aria-controls')]);history.replaceState(null,'',u)}}
+  /* abre a aba indicada no endereço (?dados=cliques) */
+  var want=new URLSearchParams(location.search).get('dados');tabs.forEach(function(t){if(KEYS[t.getAttribute('aria-controls')]===want)sel(t,false)});
+  tabs.forEach(function(t,i){t.addEventListener('click',function(){sel(t,true)});t.addEventListener('keydown',function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){var n=tabs[(i+d+tabs.length)%tabs.length];sel(n,true);n.focus()}})});
+
+  /* telas da Home: esconde o indicativo quando a pessoa rola e dá uma "espiada" automática na primeira vez que a tela aparece */
+  var still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  [].forEach.call(document.querySelectorAll(".phone"),function(p){var sc=p.querySelector(".screen");
+    sc.addEventListener("scroll",function(){if(sc.scrollTop>12)p.classList.add("seen")},{passive:true});
+    if(still||!("IntersectionObserver" in window))return;
+    var po=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&e.intersectionRatio>.6){po.disconnect();setTimeout(function(){if(sc.scrollTop)return;sc.scrollTo({top:140,behavior:"smooth"});setTimeout(function(){sc.scrollTo({top:0,behavior:"smooth"});setTimeout(function(){p.classList.remove("seen")},700)},900)},600)}})},{threshold:[.6]});
+    po.observe(p)});
+
+  /* entrada suave */
+  var els=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});els.forEach(function(el){io.observe(el)})}else els.forEach(function(el){el.classList.add('in')});
+  setTimeout(function(){var vis=[].filter.call(els,function(el){return el.getBoundingClientRect().top<innerHeight});vis.forEach(function(el){el.classList.add("in")})},1500); /* lê tudo primeiro, depois escreve */
+
+  /* padrão de formas */
+  var el=document.getElementById('pattern'),C=['#43659A','#1F2A44','#C9D6EA','#D4764E','#E2B44A'],W=[5,2,3,1,1],bgs=['#F3ECDF','#FBF8F2','#C9D6EA','#43659A'];
+  function pick(x){return x[Math.floor(Math.random()*x.length)]}
+  function wpick(){var t=0,r=Math.random()*12;for(var i=0;i<C.length;i++){t+=W[i];if(r<t)return C[i]}return C[0]}
+  var S=[function(c){return '<circle cx="24" cy="24" r="18" fill="'+c+'"/>'},function(c){return '<path d="M0 48V0A48 48 0 0 1 48 48Z" transform="rotate('+pick([0,90,180,270])+' 24 24)" fill="'+c+'"/>'},function(c){return '<path d="M0 24H48A24 24 0 0 1 0 24Z" transform="rotate('+pick([0,90,180,270])+' 24 24)" fill="'+c+'"/>'},function(c){return '<path d="M0 0H48L0 48Z" transform="rotate('+pick([0,90,180,270])+' 24 24)" fill="'+c+'"/>'},function(c){return '<rect x="12" y="12" width="24" height="24" fill="'+c+'"/>'},function(){return ''}];
+  var s='';for(var i=0;i<60;i++){var bg=pick(bgs),c=wpick();if(c===bg)c='#1F2A44';s+='<svg viewBox="0 0 48 48"><rect width="48" height="48" fill="'+bg+'"/>'+pick(S)(c)+'</svg>'}
+  el.innerHTML=s;
+})();
+</script>
+</body>
+</html>
